@@ -7,7 +7,6 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder';
 
-const PORT = import.meta.env.PORT || 3000;
 const IP = import.meta.env.IP || '194.233.87.80';
 
 const BlogEdit = () => {
@@ -47,7 +46,7 @@ const BlogEdit = () => {
             content: editor?.getHTML() || '',
             };
 
-            const response = await fetch(`http://${IP}:${PORT}/api/posts`, {
+            const response = await fetch(`http://${IP}/api/posts`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
