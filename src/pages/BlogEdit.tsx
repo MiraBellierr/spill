@@ -8,7 +8,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder';
 
 const PORT = import.meta.env.PORT || 3000;
-const IP = import.meta.env.IP || 'localhost';
+const IP = import.meta.env.IP || '194.233.87.80';
 
 const BlogEdit = () => {
     const [author, setAuthor] = useState('');
