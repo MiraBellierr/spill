@@ -1,12 +1,12 @@
 import divider from "../assets/divider.png";
 import Navigation from "../components/Navigation";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const Art = () => {
     return (
     <div className="min-h-screen bg-blue-50 text-blue-900 font-[sans-serif] flex flex-col">
-      <header className="bg-blue-200 border-b-2 border-blue-300 p-4 text-center text-4xl font-bold text-blue-700 shadow-sm">
-        <span className="tracking-widest">Mirabellier</span>
-      </header>
+      <Header />
 
       <div className="flex lg:flex-row flex-col flex-grow p-4 max-w-7xl mx-auto w-full">
         
@@ -39,10 +39,7 @@ const Art = () => {
 
       </div>
 
-        <footer className="flex justify-between bg-blue-200 border-b-2 border-blue-300 p-4 text-sm font-bold text-blue-700 shadow-sm">
-            <span className="tracking-tight text-left">Made with love ❤️ by mirabellier</span>
-            <p className="tracking-tight text-center">I love ya!! ❤️</p>
-        </footer>
+        <Footer />
 
     </div>
     )
