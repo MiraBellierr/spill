@@ -98,19 +98,12 @@ const Blog = () => {
                                     <div className="flex flex-row">
                                         <img className="h-5 w-60" src={divider} alt="divider" />
                                         <img className="h-5 w-60" src={divider} alt="divider" />
-                                        <img className="h-5 w-60" src={divider} alt="divider" />
+                                        <img className="h-5 w-60 hidden md:block" src={divider} alt="divider" />
                                     </div>
                                 )}
                             </>
                         ))
                     )}
-
-                    {/* Keep the bottom divider */}
-                    <div className="flex flex-row">
-                        <img className="h-5 w-60" src={divider} alt="divider" />
-                        <img className="h-5 w-60" src={divider} alt="divider" />
-                        <img className="h-5 w-60" src={divider} alt="divider" />
-                    </div>
                 </main>
 
                 <div className="flex-col">

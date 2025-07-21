@@ -38,7 +38,7 @@ const Home = () => {
           <div className="flex flex-row">
             <img className="h-5 w-60" src={divider}/>
             <img className="h-5 w-60" src={divider}/>
-            <img className="h-5 w-60" src={divider}/>
+            <img className="h-5 w-60 hidden md:block" src={divider}/>
           </div>    
 
           <div className="space-y-1 bg-white p-4 border border-blue-300 rounded-xl shadow">
@@ -52,7 +52,7 @@ const Home = () => {
           <div className="flex flex-row">
             <img className="h-5 w-60" src={divider}/>
             <img className="h-5 w-60" src={divider}/>
-            <img className="h-5 w-60" src={divider}/>
+            <img className="h-5 w-60 hidden md:block" src={divider}/>
           </div> 
 
           <div className="space-y-1 bg-white p-4 border border-blue-300 rounded-xl shadow">
