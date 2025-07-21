@@ -61,8 +61,9 @@ const Blog = () => {
             <Header />
 
             <div className="flex lg:flex-row flex-col flex-grow p-4 max-w-7xl mx-auto w-full">
-                <div className="flex-grow flex-col">
+                <div className="flex-grow flex-col space-y-4">
                     <Navigation />
+                    <img className="w-[350px] rounded-lg border border-blue-400" src="https://media1.tenor.com/m/92-JGT3uVmsAAAAd/dragon-maid-kanna.gif" />
                 </div>
 
                 <main className="w-full lg:w-3/5 space-y-4 p-4">
@@ -113,7 +114,7 @@ const Blog = () => {
                 </main>
 
                 <div className="flex-col">
-                    <div className="mt-3 mb-auto lg:w-[200px]">
+                    <div className="mt-3 mb-auto lg:w-[200px] space-y-4">
                         <div className="h-101 border rounded-2xl p-4 bg-blue-200 border-blue-300 shadow-md">
                             <h3 className="font-bold text-blue-600 mb-2">search posts here</h3>
                             <input
@@ -129,6 +130,8 @@ const Blog = () => {
                                 </p>
                             )}
                         </div>
+                        <img className="border border-blue-400 rounded-lg" src='https://media1.tenor.com/m/JhZvuXpFmvIAAAAd/kobayashi-kanna.gif' />
+                        <img className="border border-blue-400 rounded-lg" src='https://media1.tenor.com/m/y9_SQm0RGO8AAAAC/kanna-kamui-miss-kobayashi-dragon-maid.gif' />
                     </div>
                 </div>
             </div>
