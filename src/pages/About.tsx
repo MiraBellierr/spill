@@ -1,7 +1,11 @@
-import divider from "../assets/divider.png";
 import Navigation from "../components/Navigation";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+
+import github from "../assets/github.webp";
+import divider from "../assets/divider.png";
+import patreon from "../assets/patreon.webp";
+import kofi from "../assets/kofi.webp";
 
 const About = () => {
   return (
@@ -12,9 +16,8 @@ const About = () => {
         
         <div className="flex-grow flex-col">
           <Navigation />
-
-          <div className=" mt-3 mb-auto lg:w-[339px]">
-            <img className="h-101 rounded-2xl" src="https://media1.tenor.com/m/VyjZtGRNcMcAAAAd/misskobayashi.gif"/>
+          <div className="border shadow-md mt-3 rounded-lg overflow-hidden">
+            <iframe className="lg:w-[339px] h-[595px] rounded-lg" scrolling="no" src="https://ko-fi.com/mirabellier/?hidefeed=true&widget=true&embed=true&preview=true"></iframe>
           </div>
         </div>
    
@@ -55,7 +58,7 @@ const About = () => {
 
         </main>
 
-        <div className="flex-col">
+        <div className="flex-col space-y-4">
           <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
             <div className="space-y-2 text-sm text-center font-bold">
               <h2 className="text-blue-600 font-bold text-lg">Skills</h2>
@@ -71,6 +74,25 @@ const About = () => {
           <div className=" mt-3 mb-auto lg:w-[200px] ">
             <img className="h-101 rounded-2xl" src="https://media1.tenor.com/m/8o3YhF-eByUAAAAC/kanna-kamui.gif"/>
           </div>
+
+          <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
+            <div className="space-y-2 text-sm text-center font-bold">
+              <h2 className="text-blue-600 font-bold text-lg">Support me!!</h2>
+                <a href="https://github.com/MiraBellierr" target="_blank" rel="noopener noreferrer" className="flex flex-row space-x-1 justify-center hover:animate-wiggle">
+                  <img src={github} alt="GitHub" className="h-4 w-4 rounded-full" />
+                  <p className="text-blue-500">Github</p>
+                </a>
+                <a href="https://www.patreon.com/c/jasminebot/" target="_blank" rel="noopener noreferrer" className="flex flex-row space-x-1 justify-center hover:animate-wiggle">
+                  <img src={patreon} alt="GitHub" className="h-4 w-4 rounded-full" />
+                  <p className="text-blue-500">Patreon</p>
+                </a>
+                <a href="https://ko-fi.com/mirabellier" target="_blank" rel="noopener noreferrer" className="flex flex-row space-x-1 justify-center hover:animate-wiggle">
+                  <img src={kofi} alt="GitHub" className="h-4 w-4 rounded-full" />
+                  <p className="text-blue-500">Ko-fi</p>
+                </a>
+            </div>
+          </aside>
+
         </div>
         
 
