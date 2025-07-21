@@ -32,8 +32,8 @@ const About = () => {
           </div>
 
           <div className="flex flex-row">
-            <img className="h-5 w-60" src={divider}/>
-            <img className="h-5 w-60" src={divider}/>
+            <img className="h-5 w-60 hidden md:block" src={divider}/>
+            <img className="h-5 w-60 hidden md:block" src={divider}/>
             <img className="h-5 w-60 hidden md:block" src={divider}/>
           </div>    
 

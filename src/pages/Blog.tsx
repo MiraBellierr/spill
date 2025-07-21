@@ -96,8 +96,8 @@ const Blog = () => {
                                 
                                 {index < filteredPosts.length - 1 && (
                                     <div className="flex flex-row">
-                                        <img className="h-5 w-60" src={divider} alt="divider" />
-                                        <img className="h-5 w-60" src={divider} alt="divider" />
+                                        <img className="h-5 w-60 hidden md:block" src={divider} alt="divider" />
+                                        <img className="h-5 w-60 hidden md:block" src={divider} alt="divider" />
                                         <img className="h-5 w-60 hidden md:block" src={divider} alt="divider" />
                                     </div>
                                 )}
