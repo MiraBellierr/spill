@@ -16,8 +16,8 @@ const About = () => {
         
         <div className="flex-grow flex-col">
           <Navigation />
-          <div className="border shadow-md mt-3 rounded-lg overflow-hidden">
-            <iframe className="lg:w-[339px] h-[595px] rounded-lg" scrolling="no" src="https://ko-fi.com/mirabellier/?hidefeed=true&widget=true&embed=true&preview=true"></iframe>
+          <div className="flex border shadow-md mt-3 rounded-lg overflow-hidden">
+            <iframe className="lg:w-[339px] h-[540px] rounded-lg" scrolling="no" src="https://ko-fi.com/mirabellier/?hidefeed=true&widget=true&embed=true&preview=true"></iframe>
           </div>
         </div>
    
