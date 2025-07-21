@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link } from 'react-router-dom';
 const IP = import.meta.env.IP || '194.233.87.80';
+const PORT = import.meta.env.PORT || '5000';
 
 type Post = {
     id: string | number;
@@ -22,7 +23,7 @@ const Blog = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch(`http://${IP}/api/posts`);
+                const response = await fetch(`http://${IP}:${PORT}/api/posts`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch posts');
                 }
