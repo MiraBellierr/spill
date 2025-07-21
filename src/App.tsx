@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useEffect } from "react";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
@@ -8,13 +7,11 @@ import Art from "./pages/Art";
 import BlogEdit from "./pages/BlogEdit";
 
 function App() {
-  useEffect(() => {
-    document.title = "Mirabellier ⭐";
-  }, []);
 
   return (
     <div>
       <Helmet>
+        <title>Mirabellier ⭐</title>
         <link rel="icon" href="https://mirabellier.my.id/favicon.jpg" />
         <meta name="theme-color" content="#EE82EE" />
         <meta content="Mirabellier ⭐ | My blog" property="og:title" />
