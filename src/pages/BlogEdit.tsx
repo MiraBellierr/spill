@@ -1,11 +1,14 @@
 import Navigation from "../components/Navigation";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import MenuBar from "../components/MenuBar";
 
 import React, { useState } from 'react';
-import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import Placeholder from '@tiptap/extension-placeholder';
+import { useEditor, EditorContent } from "@tiptap/react";
+import { TextStyleKit } from '@tiptap/extension-text-style'
+
+const extensions = [TextStyleKit, StarterKit]
 
 const BlogEdit = () => {
     const [author, setAuthor] = useState('');
@@ -14,15 +17,8 @@ const BlogEdit = () => {
     const [, setSubmitSuccess] = useState(false);
 
     const editor = useEditor({
-        extensions: [
-            StarterKit,
-            Placeholder.configure({
-            placeholder: 'Write your blog content here...',
-            showOnlyWhenEditable: true,
-            showOnlyCurrent: false,
-          }),
-        ],
-        content: '',
+        extensions,
+        content: ''
     })
 
     const handleAuthorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,6 +106,7 @@ const BlogEdit = () => {
 
                         <div className="flex flex-col p-2 space-y-2">
                             <label className="font-bold text-blue-600" htmlFor="content">Content</label>
+                            <MenuBar editor={editor} />
                             <EditorContent editor={editor} className="bg-white border rounded-lg border-blue-300 p-2 min-h-[300px]" />
                         </div>
                         
