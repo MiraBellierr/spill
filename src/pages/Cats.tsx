@@ -79,7 +79,7 @@ const Cats = () => {
             setVideoLoading(true);
             
             const attemptPlay = () => {
-                if (videoRef.current) {
+                if (videoRef.current && !isIOS) {
                     const playPromise = videoRef.current.play();
                     
                     if (playPromise !== undefined) {
