@@ -13,10 +13,13 @@ interface CatVideo {
 
 const Cats = () => {
     const [videos, setVideos] = useState<CatVideo[]>([]);
+    const [filteredVideos, setFilteredVideos] = useState<CatVideo[]>([]);
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
     const [loading, setLoading] = useState(true);
     const [videoError, setVideoError] = useState<string | null>(null);
     const [videoLoading, setVideoLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [isIOS, setIsIOS] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const apiBaseUrl = "https://mirabellier.my.id/api";
 
@@ -30,13 +33,14 @@ const Cats = () => {
                 const data = await res.json();
                 if (isMounted) {
                     setVideos(data);
+                    setFilteredVideos(data);
                     setVideoError(null);
-                    console.log("Loaded videos:", data);
                 }
             } catch (err) {
                 console.error("Failed to fetch videos:", err);
                 if (isMounted) {
                     setVideos([]);
+                    setFilteredVideos([]);
                     setVideoError("Failed to load videos.");
                 }
             } finally {
@@ -52,8 +56,26 @@ const Cats = () => {
     }, []);
 
     useEffect(() => {
-        // Handle video playback when index changes
-        if (videos.length > 0 && !loading) {
+        if (searchQuery.trim() === "") {
+            setFilteredVideos(videos);
+            setCurrentVideoIndex(0);
+        } else if (!isNaN(Number(searchQuery)) && parseInt(searchQuery) <= videos.length) {
+            const filtered = [videos[parseInt(searchQuery) - 1]];
+
+            setFilteredVideos(filtered);
+            setCurrentVideoIndex(0);
+        } else {
+            const filtered = videos.filter(video => 
+                video.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                video.id.toString().includes(searchQuery)
+            );
+            setFilteredVideos(filtered);
+            setCurrentVideoIndex(0);
+        } 
+    }, [filteredVideos.length, searchQuery, videos]);
+
+    useEffect(() => {
+        if (filteredVideos.length > 0 && !loading) {
             setVideoLoading(true);
             
             const attemptPlay = () => {
@@ -75,17 +97,32 @@ const Cats = () => {
                 }
             };
 
-            // Small delay to ensure DOM is updated
             const timer = setTimeout(attemptPlay, 100);
             return () => clearTimeout(timer);
         }
-    }, [currentVideoIndex, videos, loading]);
+    }, [currentVideoIndex, filteredVideos, loading]);
+
+    useEffect(() => {
+        const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        setIsIOS(isIOSDevice);
+    }, []);
 
     const handleNext = () => {
-        if (videos.length > 1) {
+        if (filteredVideos.length > 1) {
             setVideoLoading(true);
             setVideoError(null);
-            setCurrentVideoIndex(prev => (prev + 1) % videos.length);
+            setCurrentVideoIndex(prev => (prev + 1) % filteredVideos.length);
+        }
+    };
+
+    const handlePrev = () => {
+        if (filteredVideos.length > 1) {
+            setVideoLoading(true);
+            setVideoError(null);
+            setCurrentVideoIndex(prev => 
+                prev === 0 ? filteredVideos.length - 1 : prev - 1
+            );
         }
     };
 
@@ -96,7 +133,7 @@ const Cats = () => {
 
     const handleTryPlaying = () => {
         if (videoRef.current) {
-            videoRef.current.muted = true; // Mute to avoid autoplay restrictions
+            videoRef.current.muted = true;
             videoRef.current.play().catch(error => {
                 console.error("Error trying to play video:", error);
                 setVideoError("Error playing video.");
@@ -104,7 +141,11 @@ const Cats = () => {
         }
     }
 
-    const currentVideo = videos[currentVideoIndex];
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const currentVideo = filteredVideos[currentVideoIndex];
 
     return (
         <div className="min-h-screen bg-blue-50 text-blue-900 font-[sans-serif] flex flex-col">
@@ -114,6 +155,25 @@ const Cats = () => {
                 {/* Left Navigation */}
                 <div className="flex-grow flex-col">
                     <Navigation />
+
+                    {/* Search Bar */}
+                    <div className="mt-4 p-4 border border-blue-300 rounded-lg bg-blue-100 shadow-md">
+                        <h2 className="font-bold text-blue-500 text-lg pb-2">search cat here</h2>
+                        <div className="relative">
+                            <input
+                                type="text"
+                                placeholder="Search video name or index..."
+                                value={searchQuery}
+                                onChange={handleSearch}
+                                className="border border-blue-400 rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                        {searchQuery && (
+                            <p className="text-sm text-blue-600 mt-1">
+                                Showing {filteredVideos.length} of {videos.length} videos
+                            </p>
+                        )}
+                    </div>
                 </div>
    
                 {/* Main Content */}
@@ -133,8 +193,10 @@ const Cats = () => {
                                     </button>
                                 )}
                             </div>
-                        ) : videos.length === 0 ? (
-                            <div className="text-red-500">No videos found.</div>
+                        ) : filteredVideos.length === 0 ? (
+                            <div className="text-red-500">
+                                No videos found matching "{searchQuery}". Try a different search.
+                            </div>
                         ) : (
                             <>
                                 <h2 className="text-xl font-bold text-blue-700 mb-2 text-center">
@@ -153,7 +215,8 @@ const Cats = () => {
                                         key={currentVideo.id}
                                         className="w-[243px] rounded-lg shadow-lg"
                                         controls
-                                        autoPlay
+                                        autoPlay={!isIOS}
+                                        muted={isIOS}
                                         loop
                                         onError={handleVideoError}
                                         onCanPlay={() => setVideoLoading(false)}
@@ -165,18 +228,28 @@ const Cats = () => {
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
-                                
-                                <div className="flex flex-row mt-4">
-                                    <button
-                                        className="border border-blue-700 p-2 rounded-lg hover:bg-white transition-colors"
-                                        onClick={handleNext}
-                                        disabled={loading || videos.length <= 1}
-                                    >
-                                        Next Video ({currentVideoIndex + 1}/{videos.length})
-                                    </button>
-                                </div>
                             </>
                         )}
+
+                        <div className="flex flex-row mt-4 space-x-4">
+                                <button
+                                    onClick={handlePrev}
+                                    disabled={filteredVideos.length <= 1}
+                                    className="px-2 py-1 border border-blue-400 rounded hover:bg-blue-200 disabled:opacity-50"
+                                >
+                                    Previous
+                                </button>
+                                <span className="text-blue-600 self-center">
+                                    {currentVideoIndex + 1} / {filteredVideos.length}
+                                </span>
+                                <button
+                                    onClick={handleNext}
+                                    disabled={filteredVideos.length <= 1}
+                                    className="px-3 py-1 border border-blue-400 rounded hover:bg-blue-200 disabled:opacity-50"
+                                >
+                                    Next
+                                </button>
+                            </div>
                     </div>
 
                     <div className="flex flex-row justify-center">
@@ -188,12 +261,19 @@ const Cats = () => {
 
                 {/* Right Sidebar */}
                 <div className="flex-col">
-                    <div className="mt-3 mb-auto lg:w-[200px]">
+                    <div className="mt-3 mb-auto lg:w-[200px] space-y-4">
                         <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
                             <div className="space-y-2 text-sm text-center font-bold">
                                 <h2 className="text-blue-600 font-bold text-lg">Fact 😸</h2>
                                 <p className="text-blue-500 border-t border-blue-800 p-2">
                                     Cats can jump up to six times their length.
+                                </p>
+                            </div>
+                        </aside>
+                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
+                            <div className="space-y-2 text-sm text-center font-bold">
+                                <p className="text-blue-500 p-2">
+                                    We have a total of <span className="font-bold text-blue-800 underline">{videos.length}</span> cat videos from the internet. 😸😸
                                 </p>
                             </div>
                         </aside>
