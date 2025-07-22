@@ -216,6 +216,7 @@ const Cats = () => {
                                         className="w-[243px] rounded-lg shadow-lg"
                                         controls
                                         autoPlay={!isIOS}
+                                        muted={isIOS}
                                         loop
                                         onError={handleVideoError}
                                         onCanPlay={() => setVideoLoading(false)}
