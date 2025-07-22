@@ -5,6 +5,8 @@ import About from "./pages/About";
 import Blog from "./pages/Blog";
 import Art from "./pages/Art";
 import BlogEdit from "./pages/BlogEdit";
+import Cats from "./pages/Cats";
+import CatsEdit from "./pages/CatsEdit";
 
 function App() {
 
@@ -33,6 +35,8 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/art" element={<Art />} />
         <Route path="/blog/edit" element={<BlogEdit />} />
+        <Route path="/cats" element={<Cats />} />
+        <Route path="/cats/edit" element={<CatsEdit />} />
       </Routes>
     </div>
   )
