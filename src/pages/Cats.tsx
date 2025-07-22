@@ -100,7 +100,7 @@ const Cats = () => {
             const timer = setTimeout(attemptPlay, 100);
             return () => clearTimeout(timer);
         }
-    }, [currentVideoIndex, filteredVideos, loading]);
+    }, [currentVideoIndex, filteredVideos, isIOS, loading]);
 
     useEffect(() => {
         const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
@@ -216,7 +216,6 @@ const Cats = () => {
                                         className="w-[243px] rounded-lg shadow-lg"
                                         controls
                                         autoPlay={!isIOS}
-                                        muted={isIOS}
                                         loop
                                         onError={handleVideoError}
                                         onCanPlay={() => setVideoLoading(false)}

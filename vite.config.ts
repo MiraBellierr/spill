@@ -6,5 +6,20 @@ export default defineConfig({
   plugins: [
     react(),
   ],
-  base: "/"
+  base: "/",
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          tiptap: [
+            '@tiptap/react',
+            '@tiptap/starter-kit',
+            '@tiptap/extension-placeholder',
+            '@tiptap/extension-text-style'
+          ],
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
+  }
 })

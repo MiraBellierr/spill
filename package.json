@@ -19,8 +19,6 @@
     "@tiptap/pm": "^3.0.7",
     "@tiptap/react": "^3.0.7",
     "@tiptap/starter-kit": "^3.0.7",
-    "@types/better-sqlite3": "^7.6.13",
-    "@types/knex": "^0.15.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-helmet": "^6.1.0",
