@@ -112,7 +112,8 @@ const BlogEdit = () => {
                         
                         <div className="flex p-2">
                             <button 
-                                type="submit" 
+                                type="submit"
+                                disabled={isSubmitting}
                                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:animate-wiggle"
                             >
                                 {isSubmitting ? "Publishin..." : "Publish Post"}

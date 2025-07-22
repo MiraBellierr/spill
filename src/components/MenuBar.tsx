@@ -38,6 +38,7 @@ function MenuBar({ editor }: { editor: Editor }) {
     <div className="control-group">
       <div className="button-group space-x-2">
         <button
+          type='button'
           onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editorState.canBold}
           className={editorState.isBold ? 'is-active border border-blue-500 bg-blue-300 p-1 rounded-lg' : 'border border-blue-500 bg-white p-1 rounded-lg'}
@@ -45,6 +46,7 @@ function MenuBar({ editor }: { editor: Editor }) {
           Bold
         </button>
         <button
+          type='button'
           onClick={() => editor.chain().focus().toggleItalic().run()}
           disabled={!editorState.canItalic}
           className={editorState.isItalic ? 'is-active border border-blue-500 bg-blue-300 p-1 rounded-lg' : 'border border-blue-500 bg-white p-1 rounded-lg'}
@@ -52,6 +54,7 @@ function MenuBar({ editor }: { editor: Editor }) {
           Italic
         </button>
         <button
+          type='button'
           onClick={() => editor.chain().focus().toggleStrike().run()}
           disabled={!editorState.canStrike}
           className={editorState.isStrike ? 'is-active border border-blue-500 bg-blue-300 p-1 rounded-lg' : 'border border-blue-500 bg-white p-1 rounded-lg'}
@@ -59,6 +62,7 @@ function MenuBar({ editor }: { editor: Editor }) {
           Strike
         </button>
         <button
+          type='button'
           onClick={() => editor.chain().focus().toggleCode().run()}
           disabled={!editorState.canCode}
           className={editorState.isCode ? 'is-active border border-blue-500 bg-blue-300 p-1 rounded-lg' : 'border border-blue-500 bg-white p-1 rounded-lg'}
