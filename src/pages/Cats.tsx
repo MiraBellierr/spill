@@ -37,7 +37,7 @@ const Cats = () => {
                 console.error("Failed to fetch videos:", err);
                 if (isMounted) {
                     setVideos([]);
-                    setVideoError("Failed to load videos. Please try again later.");
+                    setVideoError("Failed to load videos.");
                 }
             } finally {
                 if (isMounted) setLoading(false);
@@ -68,7 +68,7 @@ const Cats = () => {
                             })
                             .catch(error => {
                                 console.log("Autoplay prevented:", error);
-                                setVideoError("Video loaded but couldn't autoplay. Click the play button.");
+                                setVideoError("Video loaded but couldn't autoplay.");
                                 setVideoLoading(false);
                             });
                     }
@@ -90,9 +90,19 @@ const Cats = () => {
     };
 
     const handleVideoError = () => {
-        setVideoError("Failed to load video. Please try the next one.");
+        setVideoError("Failed to load video.");
         setVideoLoading(false);
     };
+
+    const handleTryPlaying = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = true; // Mute to avoid autoplay restrictions
+            videoRef.current.play().catch(error => {
+                console.error("Error trying to play video:", error);
+                setVideoError("Error playing video.");
+            });
+        }
+    }
 
     const currentVideo = videos[currentVideoIndex];
 
@@ -116,7 +126,7 @@ const Cats = () => {
                                 {videoError}
                                 {currentVideo && (
                                     <button 
-                                        onClick={() => videoRef.current?.play()}
+                                        onClick={handleTryPlaying}
                                         className="mt-2 block mx-auto border border-blue-500 px-3 py-1 rounded hover:bg-blue-50"
                                     >
                                         Try Playing
