@@ -174,6 +174,10 @@ const Cats = () => {
                             </p>
                         )}
                     </div>
+
+                    <div className="lg:w-[339px] mt-4 border border-blue-300 rounded-lg bg-blue-100 shadow-md">
+                        <img className="border border-blue-300 rounded-lg" src="https://media1.tenor.com/m/hVmwmbz6u9oAAAAC/kobayashi-san-maid-dragon.gif" />
+                    </div>
                 </div>
    
                 {/* Main Content */}
@@ -277,6 +281,25 @@ const Cats = () => {
                                 </p>
                             </div>
                         </aside>
+
+                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4 space-y-2">
+                            <h3 className="font-bold text-center">WARNING!!</h3>
+                            <div className="space-y-2 text-sm text-center font-bold border-t border-blue-800">
+                                <p className="text-blue-500 p-2">
+                                    Videos may not work on Safari and iOS devices.
+                                </p>
+                                <p className="text-blue-500 p-2">
+                                    If the video is not loading, try refreshing the page.
+                                </p>
+                                <p className="text-blue-500 p-2">
+                                    Recently uploaded videos may take a while to load.
+                                </p>
+                            </div>
+                        </aside>
+
+                        {/* <div className="border border-blue-300 rounded-lg">
+                            <img className="border border-blue-300 rounded-lg" src="https://media1.tenor.com/m/w2KMC1ZRTxoAAAAC/kanna-kanna-kamui.gif" />
+                        </div> */}
                     </div>
                 </div>
             </div>
