@@ -20,7 +20,9 @@ const BlogEdit = () => {
 
     const editor = useEditor({
         extensions,
-        content: ''
+        content: '',
+        autofocus: false,
+        editable: true,
     })
 
     const handleAuthorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,21 +35,27 @@ const BlogEdit = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        if (!editor) {
+            console.error('Editor is not ready');
+            return;
+        }
+        
         setIsSubmitting(true);
         
         try {
             const blogData = {
-            author,
-            title,
-            content: editor?.getHTML() || '',
+                author,
+                title,
+                content: editor.getHTML(),
             };
 
             const response = await fetch(`https://mirabellier.my.id/api/api/posts`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(blogData),
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(blogData),
             });
 
             if (!response.ok) throw new Error('Failed to save post');
@@ -57,13 +65,17 @@ const BlogEdit = () => {
             
             setAuthor('');
             setTitle('');
-            editor?.commands.clearContent();
+            editor.commands.clearContent();
         } catch (error) {
             console.error('Error saving blog post:', error);
         } finally {
             setIsSubmitting(false);
         }
-        };
+    };
+
+    if (!editor) {
+        return <div>Loading editor...</div>;
+    }
 
     return (
         <div className="min-h-screen text-blue-900 font-[sans-serif] flex flex-col">
@@ -109,17 +121,17 @@ const BlogEdit = () => {
 
                             <div className="flex flex-col p-2 space-y-2">
                                 <label className="font-bold text-blue-600" htmlFor="content">Content</label>
-                                <MenuBar editor={editor} />
+                                {editor && <MenuBar editor={editor} />}
                                 <EditorContent editor={editor} className="bg-white border rounded-lg border-blue-300 p-2 min-h-[300px]" />
                             </div>
                             
                             <div className="flex p-2">
                                 <button 
                                     type="submit"
-                                    disabled={isSubmitting}
+                                    disabled={isSubmitting || !editor}
                                     className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:animate-wiggle"
                                 >
-                                    {isSubmitting ? "Publishin..." : "Publish Post"}
+                                    {isSubmitting ? "Publishing..." : "Publish Post"}
                                 </button>
                             </div>
                         </form>

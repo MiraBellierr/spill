@@ -26,7 +26,7 @@ const About = () => {
 
           <main className="w-full lg:w-3/5 space-y-2 p-4">
             
-            <div className="space-y-1 p-2 border-[10px] [border-image:url('/public/border.png')_10_fill_round]">
+            <div className="space-y-1 p-2 border-[10px] [border-image:url('/border.png')_10_fill_round]">
               <h2 className="text-xl font-bold text-blue-700 mb-2">___🖊️Introduction</h2>
               <div className="space-y-2">
                 <p>I am a software developer with over 3 years of experience using Node.js and JavaScript. I have a strong foundation in web development, with familiarity of React.JS.</p>
@@ -38,7 +38,7 @@ const About = () => {
 
             <Divider />
 
-            <div className="space-y-2 p-2 border-[10px] [border-image:url('/public/border.png')_10_fill_round]">
+            <div className="space-y-2 p-2 border-[10px] [border-image:url('/border.png')_10_fill_round]">
               <h2 className="text-xl font-bold text-blue-700 mb-2">📂 Projects</h2>
               <div className="space-y-2 pt-2">
                 <h3 className="font-bold text-blue-300">1. Jasmine (<a className="cursor-pointer underline hover:animate-wiggle" href="https://github.com/MiraBellierr/jasmine">Github</a>)</h3>

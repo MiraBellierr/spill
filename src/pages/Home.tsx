@@ -25,7 +25,7 @@ const Home = () => {
 
           <main className="w-full lg:w-3/5 space-y-2 p-4">
             
-            <div className="space-y-1 p-2 border-[10px] [border-image:url('/public/border.png')_10_fill_round]">
+            <div className="space-y-1 p-2 border-[10px] [border-image:url('/border.png')_10_fill_round]">
               <h2 className="text-xl font-bold text-blue-700 mb-2">🌸 About Me 🌸</h2>
               <p>Hiya!! I'm Mirabellier! 💙</p>
               <p>I'm just a <span className="font-bold text-blue-600">chill internet spirit</span> who loves <span className="underline font-bold text-blue-600">cute</span> things, and making friends!</p>
@@ -40,7 +40,7 @@ const Home = () => {
 
             <Divider />   
 
-            <div className="space-y-1 p-2 border-[10px] [border-image:url('/public/border.png')_10_fill_round]">
+            <div className="space-y-1 p-2 border-[10px] [border-image:url('/border.png')_10_fill_round]">
               <h2 className="text-xl font-bold text-blue-700 mb-2">🧠 Random Facts!</h2>
               <p className="">• My favorite color is <span className="font-bold text-blue-300">pastel blue</span> 💙</p>
               <p className="">• I love collecting plushies and stickers</p>
@@ -50,7 +50,7 @@ const Home = () => {
 
             <Divider />
 
-            <div className="space-y-1 p-2 border-[10px] [border-image:url('/public/border.png')_10_fill_round]">
+            <div className="space-y-1 p-2 border-[10px] [border-image:url('/border.png')_10_fill_round]">
               <h2 className="text-xl font-bold text-blue-700 mb-2">💬 What You’ll Find Here</h2>
               <p className="">This site is just my little corner of the web where I share my thoughts, memories, and maybe some projects I’m working on!
                 I might add more pages soon, like:</p>
