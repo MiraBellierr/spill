@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import divider from "../assets/divider.png";
 import Navigation from "../components/Navigation";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import Divider from "../components/Divider";
+
+import background from "../assets/background.jpeg";
 
 
 interface CatVideo {
@@ -150,159 +152,157 @@ const Cats = () => {
     const currentVideo = filteredVideos[currentVideoIndex];
 
     return (
-        <div className="min-h-screen bg-blue-50 text-blue-900 font-[sans-serif] flex flex-col">
+        <div className="min-h-screen text-blue-900 font-[sans-serif] flex flex-col">
             <Header />
             
-            <div className="flex lg:flex-row flex-col flex-grow p-4 max-w-7xl mx-auto w-full">
-                {/* Left Navigation */}
-                <div className="flex-grow flex-col">
-                    <Navigation />
+            <div className="min-h-screen flex flex-col bg-cover bg-no-repeat bg-scroll" style={{ backgroundImage: `url(${background})` }}>
+                <div className="flex lg:flex-row flex-col flex-grow p-4 max-w-7xl mx-auto w-full">
+                    {/* Left Navigation */}
+                    <div className="flex-grow flex-col">
+                        <Navigation />
 
-                    {/* Search Bar */}
-                    <div className="mt-4 p-4 border border-blue-300 rounded-lg bg-blue-100 shadow-md">
-                        <h2 className="font-bold text-blue-500 text-lg pb-2">search cat here</h2>
-                        <div className="relative">
-                            <input
-                                type="text"
-                                placeholder="Search video name or index..."
-                                value={searchQuery}
-                                onChange={handleSearch}
-                                className="border border-blue-400 rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
+                        {/* Search Bar */}
+                        <div className="mt-4 p-4 border border-blue-300 rounded-lg bg-blue-100 shadow-md">
+                            <h2 className="font-bold text-blue-500 text-lg pb-2">search cat here</h2>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    placeholder="Search video name or index..."
+                                    value={searchQuery}
+                                    onChange={handleSearch}
+                                    className="border border-blue-400 rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            {searchQuery && (
+                                <p className="text-sm text-blue-600 mt-1">
+                                    Showing {filteredVideos.length} of {videos.length} videos
+                                </p>
+                            )}
                         </div>
-                        {searchQuery && (
-                            <p className="text-sm text-blue-600 mt-1">
-                                Showing {filteredVideos.length} of {videos.length} videos
-                            </p>
-                        )}
-                    </div>
 
-                    <div className="flex justify-center lg:w-[339px] mt-4 border border-blue-300 rounded-lg bg-blue-100 shadow-md">
-                        <img className="border border-blue-300 rounded-lg" src="https://media1.tenor.com/m/hVmwmbz6u9oAAAAC/kobayashi-san-maid-dragon.gif" />
+                        <div className="flex justify-center lg:w-[339px] mt-4 border border-blue-300 rounded-lg bg-blue-100 shadow-md">
+                            <img className="border border-blue-300 rounded-lg" src="https://media1.tenor.com/m/hVmwmbz6u9oAAAAC/kobayashi-san-maid-dragon.gif" />
+                        </div>
                     </div>
-                </div>
-   
-                {/* Main Content */}
-                <main className="w-full lg:w-3/5 space-y-2 p-4">
-                    <div className="flex flex-col justify-center items-center p-4">
-                        {loading ? (
-                            <div className="text-blue-600">Loading videos...</div>
-                        ) : videoError ? (
-                            <div className="text-red-500 p-4 rounded bg-red-50 max-w-md text-center">
-                                {videoError}
-                                {currentVideo && (
-                                    <button 
-                                        onClick={handleTryPlaying}
-                                        className="mt-2 block mx-auto border border-blue-500 px-3 py-1 rounded hover:bg-blue-50"
-                                    >
-                                        Try Playing
-                                    </button>
-                                )}
-                            </div>
-                        ) : filteredVideos.length === 0 ? (
-                            <div className="text-red-500">
-                                No videos found matching "{searchQuery}". Try a different search.
-                            </div>
-                        ) : (
-                            <>
-                                <h2 className="text-xl font-bold text-blue-700 mb-2 text-center">
-                                    {currentVideo.name}
-                                </h2>
-                                
-                                {videoLoading && (
-                                    <div className="w-[243px] h-[243px] flex items-center justify-center bg-gray-100 rounded-lg">
-                                        <div className="text-blue-600">Loading video...</div>
+    
+                    {/* Main Content */}
+                    <main className="w-full lg:w-3/5 space-y-2 p-4">
+                        <div className="flex flex-col justify-center items-center p-4">
+                            {loading ? (
+                                <div className="text-blue-600">Loading videos...</div>
+                            ) : videoError ? (
+                                <div className="text-red-500 p-4 rounded bg-red-50 max-w-md text-center">
+                                    {videoError}
+                                    {currentVideo && (
+                                        <button 
+                                            onClick={handleTryPlaying}
+                                            className="mt-2 block mx-auto border border-blue-500 px-3 py-1 rounded hover:bg-blue-50"
+                                        >
+                                            Try Playing
+                                        </button>
+                                    )}
+                                </div>
+                            ) : filteredVideos.length === 0 ? (
+                                <div className="text-red-500">
+                                    No videos found matching "{searchQuery}". Try a different search.
+                                </div>
+                            ) : (
+                                <>
+                                    <h2 className="text-xl font-bold text-blue-700 mb-2 text-center">
+                                        {currentVideo.name}
+                                    </h2>
+                                    
+                                    {videoLoading && (
+                                        <div className="w-[243px] h-[243px] flex items-center justify-center bg-gray-100 rounded-lg">
+                                            <div className="text-blue-600">Loading video...</div>
+                                        </div>
+                                    )}
+                                    
+                                    <div className={`${videoLoading ? 'hidden' : 'block'}`}>
+                                        <video
+                                            ref={videoRef}
+                                            key={currentVideo.id}
+                                            className="w-[243px] rounded-lg shadow-lg"
+                                            controls
+                                            autoPlay={!isIOS}
+                                            muted={isIOS}
+                                            loop
+                                            onError={handleVideoError}
+                                            onCanPlay={() => setVideoLoading(false)}
+                                        >
+                                            <source 
+                                                src={`${apiBaseUrl}${currentVideo.url}`} 
+                                                type="video/mp4" 
+                                            />
+                                            Your browser does not support the video tag.
+                                        </video>
                                     </div>
-                                )}
-                                
-                                <div className={`${videoLoading ? 'hidden' : 'block'}`}>
-                                    <video
-                                        ref={videoRef}
-                                        key={currentVideo.id}
-                                        className="w-[243px] rounded-lg shadow-lg"
-                                        controls
-                                        autoPlay={!isIOS}
-                                        muted={isIOS}
-                                        loop
-                                        onError={handleVideoError}
-                                        onCanPlay={() => setVideoLoading(false)}
+                                </>
+                            )}
+
+                            <div className="flex flex-row mt-4 space-x-4">
+                                    <button
+                                        onClick={handlePrev}
+                                        disabled={filteredVideos.length <= 1}
+                                        className="px-2 py-1 border border-blue-400 rounded hover:bg-blue-200 disabled:opacity-50"
                                     >
-                                        <source 
-                                            src={`${apiBaseUrl}${currentVideo.url}`} 
-                                            type="video/mp4" 
-                                        />
-                                        Your browser does not support the video tag.
-                                    </video>
+                                        Previous
+                                    </button>
+                                    <span className="text-blue-600 self-center">
+                                        {currentVideoIndex + 1} / {filteredVideos.length}
+                                    </span>
+                                    <button
+                                        onClick={handleNext}
+                                        disabled={filteredVideos.length <= 1}
+                                        className="px-3 py-1 border border-blue-400 rounded hover:bg-blue-200 disabled:opacity-50"
+                                    >
+                                        Next
+                                    </button>
                                 </div>
-                            </>
-                        )}
+                        </div>
 
-                        <div className="flex flex-row mt-4 space-x-4">
-                                <button
-                                    onClick={handlePrev}
-                                    disabled={filteredVideos.length <= 1}
-                                    className="px-2 py-1 border border-blue-400 rounded hover:bg-blue-200 disabled:opacity-50"
-                                >
-                                    Previous
-                                </button>
-                                <span className="text-blue-600 self-center">
-                                    {currentVideoIndex + 1} / {filteredVideos.length}
-                                </span>
-                                <button
-                                    onClick={handleNext}
-                                    disabled={filteredVideos.length <= 1}
-                                    className="px-3 py-1 border border-blue-400 rounded hover:bg-blue-200 disabled:opacity-50"
-                                >
-                                    Next
-                                </button>
-                            </div>
-                    </div>
+                        <Divider />   
+                    </main>
 
-                    <div className="flex flex-row justify-center">
-                        <img className="h-5 w-60 hidden md:block" src={divider} alt="divider"/>
-                        <img className="h-5 w-60 hidden md:block" src={divider} alt="divider"/>
-                        <img className="h-5 w-60 hidden md:block" src={divider} alt="divider"/>
-                    </div>    
-                </main>
+                    {/* Right Sidebar */}
+                    <div className="flex-col">
+                        <div className="mt-3 mb-auto lg:w-[200px] space-y-4">
+                            <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
+                                <div className="space-y-2 text-sm text-center font-bold">
+                                    <h2 className="text-blue-600 font-bold text-lg">Upload 😸</h2>
+                                    <div className="border border-blue-300 rounded-2xl bg-blue-200 p-1 hover:bg-blue-300 hover:animate-wiggle">
+                                        <Link to="/cats/edit">Click here</Link>
+                                    </div>
 
-                {/* Right Sidebar */}
-                <div className="flex-col">
-                    <div className="mt-3 mb-auto lg:w-[200px] space-y-4">
-                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
-                            <div className="space-y-2 text-sm text-center font-bold">
-                                <h2 className="text-blue-600 font-bold text-lg">Upload 😸</h2>
-                                <div className="border border-blue-300 rounded-2xl bg-blue-200 p-1 hover:bg-blue-300 hover:animate-wiggle">
-                                    <Link to="/cats/edit">Click here</Link>
                                 </div>
+                            </aside>
+                            <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
+                                <div className="space-y-2 text-sm text-center font-bold">
+                                    <p className="text-blue-500 p-2">
+                                        We have a total of <span className="font-bold text-blue-800 underline">{videos.length}</span> cat videos from the internet. 😸😸
+                                    </p>
+                                </div>
+                            </aside>
 
-                            </div>
-                        </aside>
-                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
-                            <div className="space-y-2 text-sm text-center font-bold">
-                                <p className="text-blue-500 p-2">
-                                    We have a total of <span className="font-bold text-blue-800 underline">{videos.length}</span> cat videos from the internet. 😸😸
-                                </p>
-                            </div>
-                        </aside>
+                            <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4 space-y-2">
+                                <h3 className="font-bold text-center">WARNING!!</h3>
+                                <div className="space-y-2 text-sm text-center font-bold border-t border-blue-800">
+                                    <p className="text-blue-500 p-2">
+                                        Videos <span className="font-extrabold underline">may not work</span> on Safari and iOS devices.
+                                    </p>
+                                    <p className="text-blue-500 p-2">
+                                        If the video is not loading, try <span className="font-extrabold underline">refreshing the page</span>.
+                                    </p>
+                                    <p className="text-blue-500 p-2">
+                                        Recently uploaded videos <span className="font-extrabold underline">may take a while to load</span>.
+                                    </p>
+                                </div>
+                            </aside>
 
-                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4 space-y-2">
-                            <h3 className="font-bold text-center">WARNING!!</h3>
-                            <div className="space-y-2 text-sm text-center font-bold border-t border-blue-800">
-                                <p className="text-blue-500 p-2">
-                                    Videos <span className="font-extrabold underline">may not work</span> on Safari and iOS devices.
-                                </p>
-                                <p className="text-blue-500 p-2">
-                                    If the video is not loading, try <span className="font-extrabold underline">refreshing the page</span>.
-                                </p>
-                                <p className="text-blue-500 p-2">
-                                    Recently uploaded videos <span className="font-extrabold underline">may take a while to load</span>.
-                                </p>
-                            </div>
-                        </aside>
-
-                        {/* <div className="border border-blue-300 rounded-lg">
-                            <img className="border border-blue-300 rounded-lg" src="https://media1.tenor.com/m/w2KMC1ZRTxoAAAAC/kanna-kanna-kamui.gif" />
-                        </div> */}
+                            {/* <div className="border border-blue-300 rounded-lg">
+                                <img className="border border-blue-300 rounded-lg" src="https://media1.tenor.com/m/w2KMC1ZRTxoAAAAC/kanna-kanna-kamui.gif" />
+                            </div> */}
+                        </div>
                     </div>
                 </div>
             </div>

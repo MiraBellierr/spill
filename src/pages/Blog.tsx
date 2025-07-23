@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import divider from "../assets/divider.png";
 import Navigation from "../components/Navigation";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link } from 'react-router-dom';
+import Divider from '../components/Divider';
+
+import background from '../assets/background.jpeg';
 
 type Post = {
     id: string | number;
@@ -70,132 +72,132 @@ const Blog = () => {
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
     return (
-        <div className="min-h-screen bg-blue-50 text-blue-900 font-[sans-serif] flex flex-col">
+        <div className="min-h-screen text-blue-900 font-[sans-serif] flex flex-col">
             <Header />
-
-            <div className="flex lg:flex-row flex-col flex-grow p-4 max-w-7xl mx-auto w-full">
-                <div className="flex-grow flex-col space-y-4">
-                    <Navigation />
-                    <div className="h-101 border rounded-lg p-4 bg-blue-100 border-blue-300 shadow-md">
-                        <h3 className="font-bold text-blue-600 mb-2">search posts here</h3>
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className="w-full p-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        {searchTerm && (
-                            <p className="mt-2 text-sm text-blue-600">
-                                {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''} found
-                            </p>
-                        )}
-                    </div>
-                    <div className='flex justify-center'>
-                        <img className="w-[350px] rounded-lg border border-blue-400" src="https://media1.tenor.com/m/cJ-bh8QFs9kAAAAC/anime-kanna.gif" />
-                    </div>
-                    
-                </div>
-
-                <main className="w-full lg:w-3/5 space-y-4 p-4">
-                    {loading ? (
-                        <div className="bg-white p-4 border border-blue-300 rounded-xl shadow text-center">
-                            <p>Loading posts...</p>
+            
+            <div className="min-h-screen flex flex-col bg-cover bg-no-repeat bg-scroll" style={{ backgroundImage: `url(${background})` }}>
+                <div className="flex lg:flex-row flex-col flex-grow p-4 max-w-7xl mx-auto w-full">
+                    <div className="flex-grow flex-col space-y-4">
+                        <Navigation />
+                        <div className="h-101 border rounded-lg p-4 bg-blue-100 border-blue-300 shadow-md opacity-90">
+                            <h3 className="font-bold text-blue-600 mb-2">search posts here</h3>
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                className="w-full p-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            {searchTerm && (
+                                <p className="mt-2 text-sm text-blue-600">
+                                    {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''} found
+                                </p>
+                            )}
                         </div>
-                    ) : error ? (
-                        <div className="bg-red-100 border border-red-400 text-red-700 p-4 rounded-xl">
-                            Error: {error}
-                        </div>
-                    ) : filteredPosts.length === 0 ? (
-                        <div className="space-y-1 bg-white p-4 border border-blue-300 rounded-xl shadow">
-                            <h2 className="text-xl font-bold text-blue-700 mb-2 text-center">
-                                {searchTerm ? 'No matching posts found' : 'No posts yet'}
-                            </h2>
-                            <img src="https://media1.tenor.com/m/vk4u2ez6sHUAAAAd/kanna-eating.gif" alt="No posts" className="mx-auto" />
-                        </div>
-                    ) : (
-                        <>
-                            {currentPosts.map((post, index) => (
-                                <>
-                                    <div key={post.id} className="bg-white p-4 border border-blue-300 rounded-xl shadow">
-                                        <h2 className="text-xl font-bold text-blue-700 mb-2">{post.title}</h2>
-                                        <p className="text-sm text-blue-500 mb-2">By {post.author} • {new Date(post.createdAt).toLocaleDateString()}</p>
-                                        <div 
-                                            className="prose prose-blue max-w-none"
-                                            dangerouslySetInnerHTML={{ __html: post.content }}
-                                        />
-                                    </div>
-                                    
-                                    {index < currentPosts.length - 1 && (
-                                        <div className="flex flex-row">
-                                            <img className="h-5 w-60 hidden md:block" src={divider} alt="divider" />
-                                            <img className="h-5 w-60 hidden md:block" src={divider} alt="divider" />
-                                            <img className="h-5 w-60 hidden md:block" src={divider} alt="divider" />
-                                        </div>
-                                    )}
-                                </>
-                            ))}
-
-                            
-                        </>
-                    )}
-                </main>
-
-                <div className="flex-col">
-                    <div className="mt-3 mb-auto lg:w-[200px] space-y-4">
-                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
-                            <div className="space-y-2 text-sm text-center font-bold">
-                                <h2 className="text-blue-600 font-bold text-lg">Create 📒</h2>
-                                <div className="border border-blue-300 rounded-2xl bg-blue-200 p-1 hover:bg-blue-300 hover:animate-wiggle">
-                                    <Link to="/blog/edit">Click here</Link>
-                                </div>
-
-                            </div>
-                        </aside>
                         <div className='flex justify-center'>
-                            <img className="border border-blue-400 rounded-lg" src='https://media1.tenor.com/m/JhZvuXpFmvIAAAAd/kobayashi-kanna.gif' />
+                            <img className="w-[350px] rounded-lg border border-blue-400" src="https://media1.tenor.com/m/cJ-bh8QFs9kAAAAC/anime-kanna.gif" />
                         </div>
                         
                     </div>
+
+                    <main className="w-full lg:w-3/5 space-y-4 p-4">
+                        {loading ? (
+                            <div className="p-2 border-[10px] [border-image:url('/public/border.png')_10_fill_round] text-center">
+                                <p>Loading posts...</p>
+                            </div>
+                        ) : error ? (
+                            <div className="bg-red-100 border border-red-400 text-red-700 p-4 rounded-xl">
+                                Error: {error}
+                            </div>
+                        ) : filteredPosts.length === 0 ? (
+                            <div className="space-y-1 p-2 border-[10px] [border-image:url('/public/border.png')_10_fill_round]">
+                                <h2 className="text-xl font-bold text-blue-700 mb-2 text-center">
+                                    {searchTerm ? 'No matching posts found' : 'No posts yet'}
+                                </h2>
+                                <img src="https://media1.tenor.com/m/vk4u2ez6sHUAAAAd/kanna-eating.gif" alt="No posts" className="mx-auto" />
+                            </div>
+                        ) : (
+                            <>
+                                {currentPosts.map((post, index) => (
+                                    <>
+                                        <div key={post.id} className="p-2 border-[10px] [border-image:url('/public/border.png')_10_fill_round]">
+                                            <h2 className="text-xl font-bold text-blue-700 mb-2">{post.title}</h2>
+                                            <p className="text-sm text-blue-500 mb-2">By {post.author} • {new Date(post.createdAt).toLocaleDateString()}</p>
+                                            <div 
+                                                className="prose prose-blue max-w-none"
+                                                dangerouslySetInnerHTML={{ __html: post.content }}
+                                            />
+                                        </div>
+                                        
+                                        {index < currentPosts.length - 1 && (
+                                            <Divider />
+                                        )}
+                                    </>
+                                ))}
+
+                                
+                            </>
+                        )}
+                    </main>
+
+                    <div className="flex-col">
+                        <div className="mt-3 mb-auto lg:w-[200px] space-y-4">
+                            <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
+                                <div className="space-y-2 text-sm text-center font-bold">
+                                    <h2 className="text-blue-600 font-bold text-lg">Create 📒</h2>
+                                    <div className="border border-blue-300 rounded-2xl bg-blue-200 p-1 hover:bg-blue-300 hover:animate-wiggle">
+                                        <Link to="/blog/edit">Click here</Link>
+                                    </div>
+
+                                </div>
+                            </aside>
+                            <div className='flex justify-center'>
+                                <img className="border border-blue-400 rounded-lg" src='https://media1.tenor.com/m/JhZvuXpFmvIAAAAd/kobayashi-kanna.gif' />
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* Pagination controls */}
-            {totalPages > 1 && (
-                <div className="flex justify-center items-center mt-6 space-x-2">
-                    <button
-                        onClick={() => paginate(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className={`px-4 py-2 rounded-lg border ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
-                    >
-                        Previous
-                    </button>
-                    
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+
+            <div className="flex flex-col flex-grow p-4 max-w-7xl mx-auto w-full justify-center">
+                {/* Pagination controls */}
+                {totalPages > 1 && (
+                    <div className="flex justify-center items-center mt-6 space-x-2 opacity-90">
                         <button
-                            key={number}
-                            onClick={() => paginate(number)}
-                            className={`px-4 py-2 rounded-lg border ${currentPage === number ? 'bg-blue-500 text-white' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
+                            onClick={() => paginate(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            className={`px-4 py-2 rounded-lg border ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
                         >
-                            {number}
+                            Previous
                         </button>
-                    ))}
-                    
-                    <button
-                        onClick={() => paginate(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                        className={`px-4 py-2 rounded-lg border ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
-                    >
-                        Next
-                    </button>
+                        
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+                            <button
+                                key={number}
+                                onClick={() => paginate(number)}
+                                className={`px-4 py-2 rounded-lg border ${currentPage === number ? 'bg-blue-500 text-white' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
+                            >
+                                {number}
+                            </button>
+                        ))}
+                        
+                        <button
+                            onClick={() => paginate(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            className={`px-4 py-2 rounded-lg border ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
+                        >
+                            Next
+                        </button>
+                    </div>
+                )}
+
+                <div className="text-center text-sm text-blue-600 mt-2 mb-4">
+                    Showing posts {indexOfFirstPost + 1} to {Math.min(indexOfLastPost, filteredPosts.length)} of {filteredPosts.length}
                 </div>
-            )}
-
-            <div className="text-center text-sm text-blue-600 mt-2 mb-4">
-                Showing posts {indexOfFirstPost + 1} to {Math.min(indexOfLastPost, filteredPosts.length)} of {filteredPosts.length}
             </div>
-
-            <Footer />
+                <Footer />            
         </div>
     )
 }
