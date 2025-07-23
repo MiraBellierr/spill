@@ -91,7 +91,10 @@ const Blog = () => {
                             </p>
                         )}
                     </div>
-                    <img className="w-[350px] rounded-lg border border-blue-400" src="https://media1.tenor.com/m/cJ-bh8QFs9kAAAAC/anime-kanna.gif" />
+                    <div className='flex justify-center'>
+                        <img className="w-[350px] rounded-lg border border-blue-400" src="https://media1.tenor.com/m/cJ-bh8QFs9kAAAAC/anime-kanna.gif" />
+                    </div>
+                    
                 </div>
 
                 <main className="w-full lg:w-3/5 space-y-4 p-4">
@@ -149,7 +152,10 @@ const Blog = () => {
 
                             </div>
                         </aside>
-                        <img className="border border-blue-400 rounded-lg" src='https://media1.tenor.com/m/JhZvuXpFmvIAAAAd/kobayashi-kanna.gif' />
+                        <div className='flex justify-center'>
+                            <img className="border border-blue-400 rounded-lg" src='https://media1.tenor.com/m/JhZvuXpFmvIAAAAd/kobayashi-kanna.gif' />
+                        </div>
+                        
                     </div>
                 </div>
             </div>

@@ -20,7 +20,9 @@ const Art = () => {
           
           <div className="space-y-1 bg-white p-4 border border-blue-300 rounded-xl shadow">
             <h2 className="text-xl font-bold text-blue-700 mb-2 text-center">⚙️ Soon to be implement... (art)</h2>
-            <img src="https://media1.tenor.com/m/vk4u2ez6sHUAAAAd/kanna-eating.gif" />
+            <div className="flex justify-center">
+              <img src="https://media1.tenor.com/m/vk4u2ez6sHUAAAAd/kanna-eating.gif" />
+            </div>
           </div>
 
           <div className="flex flex-row">

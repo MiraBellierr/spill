@@ -14,7 +14,7 @@ const Home = () => {
         <div className="flex-grow flex-col">
           <Navigation />
 
-          <div className=" mt-3 mb-auto">
+          <div className=" mt-3 mb-auto justify-center items-center flex">
             <img className="h-101 border border-blue-700 shadow-md rounded-2xl" src="https://media1.tenor.com/m/jW2TAwN7h50AAAAC/anime-kanna-kobayashi.gif"/>
           </div>
         </div>

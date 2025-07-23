@@ -177,7 +177,7 @@ const Cats = () => {
                         )}
                     </div>
 
-                    <div className="lg:w-[339px] mt-4 border border-blue-300 rounded-lg bg-blue-100 shadow-md">
+                    <div className="flex justify-center lg:w-[339px] mt-4 border border-blue-300 rounded-lg bg-blue-100 shadow-md">
                         <img className="border border-blue-300 rounded-lg" src="https://media1.tenor.com/m/hVmwmbz6u9oAAAAC/kobayashi-san-maid-dragon.gif" />
                     </div>
                 </div>
