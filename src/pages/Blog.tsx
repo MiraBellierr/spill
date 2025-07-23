@@ -158,45 +158,44 @@ const Blog = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-            <div className="flex flex-col flex-grow p-4 max-w-7xl mx-auto w-full justify-center">
-                {/* Pagination controls */}
-                {totalPages > 1 && (
-                    <div className="flex justify-center items-center mt-6 space-x-2 opacity-90">
-                        <button
-                            onClick={() => paginate(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            className={`px-4 py-2 rounded-lg border ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
-                        >
-                            Previous
-                        </button>
-                        
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+                <div className="flex flex-col flex-grow p-4 max-w-7xl mx-auto w-full justify-center">
+                    {/* Pagination controls */}
+                    {totalPages > 1 && (
+                        <div className="flex justify-center items-center mt-6 space-x-2 opacity-90">
                             <button
-                                key={number}
-                                onClick={() => paginate(number)}
-                                className={`px-4 py-2 rounded-lg border ${currentPage === number ? 'bg-blue-500 text-white' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
+                                onClick={() => paginate(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                className={`px-4 py-2 rounded-lg border ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
                             >
-                                {number}
+                                Previous
                             </button>
-                        ))}
-                        
-                        <button
-                            onClick={() => paginate(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                            className={`px-4 py-2 rounded-lg border ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
-                        >
-                            Next
-                        </button>
-                    </div>
-                )}
+                            
+                            {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+                                <button
+                                    key={number}
+                                    onClick={() => paginate(number)}
+                                    className={`px-4 py-2 rounded-lg border ${currentPage === number ? 'bg-blue-500 text-white' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
+                                >
+                                    {number}
+                                </button>
+                            ))}
+                            
+                            <button
+                                onClick={() => paginate(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                                className={`px-4 py-2 rounded-lg border ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-blue-200 text-blue-700 hover:bg-blue-300'}`}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    )}
 
-                <div className="text-center text-sm text-blue-600 mt-2 mb-4">
-                    Showing posts {indexOfFirstPost + 1} to {Math.min(indexOfLastPost, filteredPosts.length)} of {filteredPosts.length}
+                    <div className="text-center text-sm text-blue-600 mt-2 mb-4">
+                        Showing posts {indexOfFirstPost + 1} to {Math.min(indexOfLastPost, filteredPosts.length)} of {filteredPosts.length}
+                    </div>
                 </div>
             </div>
+            
                 <Footer />            
         </div>
     )
