@@ -3,6 +3,8 @@ import divider from "../assets/divider.png";
 import Navigation from "../components/Navigation";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
+
 
 interface CatVideo {
   id: string;
@@ -268,10 +270,11 @@ const Cats = () => {
                     <div className="mt-3 mb-auto lg:w-[200px] space-y-4">
                         <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
                             <div className="space-y-2 text-sm text-center font-bold">
-                                <h2 className="text-blue-600 font-bold text-lg">Fact 😸</h2>
-                                <p className="text-blue-500 border-t border-blue-800 p-2">
-                                    Cats can jump up to six times their length.
-                                </p>
+                                <h2 className="text-blue-600 font-bold text-lg">Upload 😸</h2>
+                                <div className="border border-blue-300 rounded-2xl bg-blue-200 p-1 hover:bg-blue-300 hover:animate-wiggle">
+                                    <Link to="/cats/edit">Click here</Link>
+                                </div>
+
                             </div>
                         </aside>
                         <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
@@ -286,13 +289,13 @@ const Cats = () => {
                             <h3 className="font-bold text-center">WARNING!!</h3>
                             <div className="space-y-2 text-sm text-center font-bold border-t border-blue-800">
                                 <p className="text-blue-500 p-2">
-                                    Videos may not work on Safari and iOS devices.
+                                    Videos <span className="font-extrabold underline">may not work</span> on Safari and iOS devices.
                                 </p>
                                 <p className="text-blue-500 p-2">
-                                    If the video is not loading, try refreshing the page.
+                                    If the video is not loading, try <span className="font-extrabold underline">refreshing the page</span>.
                                 </p>
                                 <p className="text-blue-500 p-2">
-                                    Recently uploaded videos may take a while to load.
+                                    Recently uploaded videos <span className="font-extrabold underline">may take a while to load</span>.
                                 </p>
                             </div>
                         </aside>
