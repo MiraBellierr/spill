@@ -117,7 +117,7 @@ const BlogEdit = () => {
                             </div>
 
                             <div className="flex flex-col p-2 space-y-2">
-                                <div className="block lg:hidden space-y-2">
+                                <div className="block xl:hidden space-y-2">
                                     <label className="font-bold text-blue-600" htmlFor="content">Content</label>
                                     {editor && <MenuBar editor={editor} />}
                                     <EditorContent editor={editor} className="bg-white border rounded-lg border-blue-300 p-2 min-h-[300px]" />
@@ -125,7 +125,7 @@ const BlogEdit = () => {
                             </div>
 
                             <div className="flex flex-col p-2 space-y-2">
-                                <div className="hidden lg:block">
+                                <div className="hidden xl:block">
                                     <label className="font-bold text-blue-600" htmlFor="content">Content</label>
                                     <div className="border border-blue-300 bg-white rounded-lg size-max">
                                         <SimpleEditor onContentChange={setContent} />
@@ -147,7 +147,7 @@ const BlogEdit = () => {
                     </main>
 
                     <div className="flex-col">
-                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4 block sm:hidden">
+                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4 block xl:hidden">
                             <div className="space-y-2 text-sm font-bold">
                                 <h2 className="text-blue-600 font-bold text-lg">Tips & Tricks</h2>
                                 <p className="text-blue-500">Bold: <span className="border border-blue-500 p-0.5 rounded-sm">Ctrl</span> + <span className="border border-blue-500 p-0.5 rounded-sm">B</span></p>
