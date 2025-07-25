@@ -4,6 +4,7 @@ import Header from "../parts/Header";
 import Footer from "../parts/Footer";
 import { Link } from 'react-router-dom';
 import Divider from '../parts/Divider';
+import Post from '../parts/Post';
 
 import background from '../assets/background.jpeg';
 
@@ -123,10 +124,7 @@ const Blog = () => {
                                         <div key={post.id} className="p-2 border-[10px] [border-image:url('/border.png')_10_fill_round]">
                                             <h2 className="text-xl font-bold text-blue-700 mb-2">{post.title}</h2>
                                             <p className="text-sm text-blue-500 mb-2">By {post.author} • {new Date(post.createdAt).toLocaleDateString()}</p>
-                                            <div 
-                                                className="prose prose-blue max-w-none"
-                                                dangerouslySetInnerHTML={{ __html: post.content }}
-                                            />
+                                                <Post html={post.content} />
                                         </div>
                                         
                                         {index < currentPosts.length - 1 && (
