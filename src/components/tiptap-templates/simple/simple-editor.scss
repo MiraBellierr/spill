@@ -73,3 +73,37 @@ body,
     padding: 1rem 1.5rem;
   }
 }
+
+.editor-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap; /* Preserve line breaks but allow wrapping */
+}
+
+.editor-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.ProseMirror {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.container, .editor-container {
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.parent-container {
+  overflow-x: hidden;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  overflow-x: auto;
+}

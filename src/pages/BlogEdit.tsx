@@ -1,15 +1,9 @@
 import Navigation from "../parts/Navigation";
 import Header from "../parts/Header";
 import Footer from "../parts/Footer";
-import MenuBar from "../parts/MenuBar";
 
 import React, { useState } from 'react';
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor'
-import StarterKit from '@tiptap/starter-kit'
-import { useEditor, EditorContent } from "@tiptap/react";
-import { TextStyleKit } from '@tiptap/extension-text-style'
-
-const extensions = [TextStyleKit, StarterKit]
 
 import background from "../assets/background.jpeg";
 
@@ -20,13 +14,6 @@ const BlogEdit = () => {
     const [content, setContent] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, setSubmitSuccess] = useState(false);
-
-    const editor = useEditor({
-        extensions,
-        content: '',
-        autofocus: false,
-        editable: true,
-    })
 
     const handleAuthorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAuthor(e.target.value);
@@ -45,7 +32,7 @@ const BlogEdit = () => {
             const blogData = {
                 author,
                 title,
-                content: content || editor.getHTML(),
+                content: content,
             };
 
             const response = await fetch(`https://mirabellier.my.id/api/api/posts`, {
@@ -117,19 +104,9 @@ const BlogEdit = () => {
                             </div>
 
                             <div className="flex flex-col p-2 space-y-2">
-                                <div className="block 2xl:hidden space-y-2">
+                                <div className="block 2xl:block">
                                     <label className="font-bold text-blue-600" htmlFor="content">Content</label>
-                                    {editor && <MenuBar editor={editor} />}
-                                    <EditorContent editor={editor} className="bg-white border rounded-lg border-blue-300 p-2 min-h-[300px]" />
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col p-2 space-y-2">
-                                <div className="hidden 2xl:block">
-                                    <label className="font-bold text-blue-600" htmlFor="content">Content</label>
-                                    <div className="border border-blue-300 bg-white rounded-lg size-max">
-                                        <SimpleEditor onContentChange={setContent} />
-                                    </div>   
+                                    <SimpleEditor onContentChange={setContent} />
                                 </div>
                                                   
                             </div>
