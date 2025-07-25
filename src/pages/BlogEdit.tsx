@@ -117,7 +117,7 @@ const BlogEdit = () => {
                             </div>
 
                             <div className="flex flex-col p-2 space-y-2">
-                                <div className="block md:hidden space-y-2">
+                                <div className="block lg:hidden space-y-2">
                                     <label className="font-bold text-blue-600" htmlFor="content">Content</label>
                                     {editor && <MenuBar editor={editor} />}
                                     <EditorContent editor={editor} className="bg-white border rounded-lg border-blue-300 p-2 min-h-[300px]" />
@@ -125,7 +125,7 @@ const BlogEdit = () => {
                             </div>
 
                             <div className="flex flex-col p-2 space-y-2">
-                                <div className="hidden md:block">
+                                <div className="hidden lg:block">
                                     <label className="font-bold text-blue-600" htmlFor="content">Content</label>
                                     <div className="border border-blue-300 bg-white rounded-lg size-max">
                                         <SimpleEditor onContentChange={setContent} />
