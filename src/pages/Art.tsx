@@ -1,7 +1,7 @@
-import Navigation from "../components/Navigation";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Divider from "../components/Divider";
+import Navigation from "../parts/Navigation";
+import Header from "../parts/Header";
+import Footer from "../parts/Footer";
+import Divider from "../parts/Divider";
 
 import background from "../assets/background.jpeg";
 

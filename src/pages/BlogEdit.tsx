@@ -1,29 +1,19 @@
-import Navigation from "../components/Navigation";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import MenuBar from "../components/MenuBar";
+import Navigation from "../parts/Navigation";
+import Header from "../parts/Header";
+import Footer from "../parts/Footer";
 
 import React, { useState } from 'react';
-import StarterKit from '@tiptap/starter-kit'
-import { useEditor, EditorContent } from "@tiptap/react";
-import { TextStyleKit } from '@tiptap/extension-text-style'
+import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor'
 
 import background from "../assets/background.jpeg";
 
-const extensions = [TextStyleKit, StarterKit]
 
 const BlogEdit = () => {
     const [author, setAuthor] = useState('');
     const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, setSubmitSuccess] = useState(false);
-
-    const editor = useEditor({
-        extensions,
-        content: '',
-        autofocus: false,
-        editable: true,
-    })
 
     const handleAuthorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAuthor(e.target.value);
@@ -36,18 +26,13 @@ const BlogEdit = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
-        if (!editor) {
-            console.error('Editor is not ready');
-            return;
-        }
-        
         setIsSubmitting(true);
         
         try {
             const blogData = {
                 author,
                 title,
-                content: editor.getHTML(),
+                content,
             };
 
             const response = await fetch(`https://mirabellier.my.id/api/api/posts`, {
@@ -65,17 +50,13 @@ const BlogEdit = () => {
             
             setAuthor('');
             setTitle('');
-            editor.commands.clearContent();
+            setContent('');
         } catch (error) {
             console.error('Error saving blog post:', error);
         } finally {
             setIsSubmitting(false);
         }
     };
-
-    if (!editor) {
-        return <div>Loading editor...</div>;
-    }
 
     return (
         <div className="min-h-screen text-blue-900 font-[sans-serif] flex flex-col">
@@ -121,14 +102,15 @@ const BlogEdit = () => {
 
                             <div className="flex flex-col p-2 space-y-2">
                                 <label className="font-bold text-blue-600" htmlFor="content">Content</label>
-                                {editor && <MenuBar editor={editor} />}
-                                <EditorContent editor={editor} className="bg-white border rounded-lg border-blue-300 p-2 min-h-[300px]" />
+                                <div className="border border-blue-300 bg-white rounded-lg size-max">
+                                    <SimpleEditor onContentChange={setContent} />
+                                </div>                         
                             </div>
                             
                             <div className="flex p-2">
                                 <button 
                                     type="submit"
-                                    disabled={isSubmitting || !editor}
+                                    disabled={isSubmitting}
                                     className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:animate-wiggle"
                                 >
                                     {isSubmitting ? "Publishing..." : "Publish Post"}
@@ -138,7 +120,7 @@ const BlogEdit = () => {
                     </main>
 
                     <div className="flex-col">
-                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
+                        {/* <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
                             <div className="space-y-2 text-sm font-bold">
                                 <h2 className="text-blue-600 font-bold text-lg">Tips & Tricks</h2>
                                 <p className="text-blue-500">Bold: <span className="border border-blue-500 p-0.5 rounded-sm">Ctrl</span> + <span className="border border-blue-500 p-0.5 rounded-sm">B</span></p>
@@ -147,7 +129,7 @@ const BlogEdit = () => {
                                 <p className="text-blue-500">Code: <span className="border border-blue-500 p-0.5 rounded-sm">Ctrl</span> + <span className="border border-blue-500 p-0.5 rounded-sm">E</span></p>
                                 <p className="text-blue-500 text-sm border-t border-blue-700 p-2 text-center">This only work in content...</p>
                             </div>
-                        </aside>                    
+                        </aside>                     */}
                         <div className="mt-3 mb-auto lg:w-[200px]">
                         </div>
                     </div>
