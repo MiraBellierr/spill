@@ -157,9 +157,6 @@ const BlogEdit = () => {
                                 <p className="text-blue-500 text-sm border-t border-blue-700 p-2 text-center">This only work in content...</p>
                             </div>
                         </aside>
-                        <div className="flex flex-row justify-center p-4">
-                            <img className="border border-blue-300 rounded-lg" src="https://media1.tenor.com/m/TuaNUyKNcvsAAAAC/kanna-kanna-kamui.gif" />             
-                        </div>
                         <div className="mt-3 mb-auto lg:w-[200px]">
                         </div>
                     </div>
