@@ -269,10 +269,13 @@ const Cats = () => {
                         <div className="mt-3 mb-auto lg:w-[200px] space-y-4">
                             <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
                                 <div className="space-y-2 text-sm text-center font-bold">
-                                    <h2 className="text-blue-600 font-bold text-lg">Upload 😸</h2>
-                                    <div className="border border-blue-300 rounded-2xl bg-blue-200 p-1 hover:bg-blue-300 hover:animate-wiggle">
-                                        <Link to="/cats/edit">Click here</Link>
-                                    </div>
+                                    <h2 className="text-blue-600 font-bold text-lg pb-2">Upload 😸</h2>
+                                    <Link to="/cats/edit">
+                                        <div className="border border-blue-300 rounded-2xl bg-blue-200 p-1 hover:bg-blue-300 hover:animate-wiggle">
+                                            Click here
+                                        </div>
+                                    </Link>
+                                    
 
                                 </div>
                             </aside>
