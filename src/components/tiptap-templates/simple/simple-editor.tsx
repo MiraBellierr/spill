@@ -175,7 +175,11 @@ const MobileToolbarContent = ({
   </>
 )
 
-export function SimpleEditor() {
+export function SimpleEditor({
+  onContentChange,
+}: {
+  onContentChange?: (content: string) => void
+}) {
   const isMobile = useIsMobile()
   const [mobileView, setMobileView] = React.useState<
     "main" | "highlighter" | "link"
@@ -221,6 +225,12 @@ export function SimpleEditor() {
       }),
     ],
     content,
+    onUpdate: ({ editor }) => {
+      if (onContentChange) {
+        const html = editor.getHTML()
+        onContentChange(html)
+      }
+    }
   })
 
   React.useEffect(() => {
