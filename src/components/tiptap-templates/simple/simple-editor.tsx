@@ -61,13 +61,14 @@ import { LinkIcon } from "@/components/tiptap-icons/link-icon"
 import { useIsMobile } from "@/hooks/use-mobile"
 
 // --- Components ---
-import Placeholder from '@tiptap/extension-placeholder';
 
 // --- Lib ---
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
 
 // --- Styles ---
 import "@/components/tiptap-templates/simple/simple-editor.scss"
+
+import content from "@/components/tiptap-templates/simple/data/content.json"
 
 const MainToolbarContent = ({
   onHighlighterClick,
@@ -134,12 +135,13 @@ const MainToolbarContent = ({
       <ToolbarSeparator />
 
       <ToolbarGroup>
-        <ImageUploadButton />
+        <ImageUploadButton text="Add" />
       </ToolbarGroup>
 
       <Spacer />
 
       {isMobile && <ToolbarSeparator />}
+
     </>
   )
 }
@@ -173,11 +175,7 @@ const MobileToolbarContent = ({
   </>
 )
 
-export function SimpleEditor({
-  onContentChange,
-}: {
-  onContentChange?: (content: string) => void
-}) {
+export function SimpleEditor() {
   const isMobile = useIsMobile()
   const [mobileView, setMobileView] = React.useState<
     "main" | "highlighter" | "link"
@@ -212,11 +210,7 @@ export function SimpleEditor({
       Image,
       Typography,
       Superscript,
-      Subscript.configure({
-        HTMLAttributes: {
-          class: "subscript",
-        },
-      }),
+      Subscript,
       Selection,
       ImageUploadNode.configure({
         accept: "image/*",
@@ -225,25 +219,9 @@ export function SimpleEditor({
         upload: handleImageUpload,
         onError: (error) => console.error("Upload failed:", error),
       }),
-      Placeholder.configure({
-        placeholder: "Write content here...",
-        emptyEditorClass: "is-editor-empty"
-      })
     ],
-    content: "",
+    content,
   })
-
-  React.useEffect(() => {
-    if (editor && onContentChange) {
-      const handler = () => {
-        onContentChange(editor.getHTML());
-      };
-      editor.on('update', handler);
-      return () => {
-        editor.off('update', handler);
-      };
-    }
-  }, [editor, onContentChange]);
 
   React.useEffect(() => {
     if (!isMobile && mobileView !== "main") {
@@ -252,15 +230,14 @@ export function SimpleEditor({
   }, [isMobile, mobileView])
 
   return (
-    <div className="editor-container flex flex-col bg-white border rounded-lg size-max">
+    <div className="simple-editor-wrapper border bg-white rounded-lg border-blue-300">
       <EditorContext.Provider value={{ editor }}>
         <Toolbar
-        className="p-2 border-b-2 border-blue-300 flex flex-row toolbar"
           ref={toolbarRef}
           // style={
           //   isMobile
           //     ? {
-          //         bottom: `calc(${windowSize.height - bodyRect.y}px)`,
+          //         bottom: `calc(100% - ${windowSize.height - bodyRect.y}px)`,
           //       }
           //     : {}
           // }
@@ -282,7 +259,7 @@ export function SimpleEditor({
         <EditorContent
           editor={editor}
           role="presentation"
-          className="editor-content p-2 min-h-[300px] min-w-[calc(100vw-8px)]"
+          className="simple-editor-content"
         />
       </EditorContext.Provider>
     </div>

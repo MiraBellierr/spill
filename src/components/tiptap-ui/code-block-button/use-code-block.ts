@@ -7,6 +7,7 @@ import { NodeSelection, TextSelection } from "@tiptap/pm/state"
 
 // --- Hooks ---
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 // --- Lib ---
 import {
@@ -206,6 +207,7 @@ export function useCodeBlock(config?: UseCodeBlockConfig) {
   } = config || {}
 
   const { editor } = useTiptapEditor(providedEditor)
+  const isMobile = useIsMobile()
   const [isVisible, setIsVisible] = React.useState<boolean>(true)
   const canToggleState = canToggle(editor)
   const isActive = editor?.isActive("codeBlock") || false
@@ -244,7 +246,7 @@ export function useCodeBlock(config?: UseCodeBlockConfig) {
     },
     {
       enabled: isVisible && canToggleState,
-      enableOnContentEditable: true,
+      enableOnContentEditable: !isMobile,
       enableOnFormTags: true,
     }
   )

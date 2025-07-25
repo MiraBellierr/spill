@@ -4,6 +4,7 @@ import { useHotkeys } from "react-hotkeys-hook"
 
 // --- Hooks ---
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 // --- Lib ---
 import { isMarkInSchema, isNodeTypeSelected } from "@/lib/tiptap-utils"
@@ -156,6 +157,7 @@ export function useColorHighlight(config: UseColorHighlightConfig) {
   } = config
 
   const { editor } = useTiptapEditor(providedEditor)
+  const isMobile = useIsMobile()
   const [isVisible, setIsVisible] = React.useState<boolean>(true)
   const canColorHighlightState = canColorHighlight(editor)
   const isActive = isColorHighlightActive(editor, highlightColor)
@@ -207,7 +209,7 @@ export function useColorHighlight(config: UseColorHighlightConfig) {
     },
     {
       enabled: isVisible && canColorHighlightState,
-      enableOnContentEditable: true,
+      enableOnContentEditable: !isMobile,
       enableOnFormTags: true,
     }
   )

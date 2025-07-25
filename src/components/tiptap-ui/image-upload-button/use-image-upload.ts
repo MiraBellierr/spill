@@ -6,6 +6,7 @@ import { type Editor } from "@tiptap/react"
 
 // --- Hooks ---
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 // --- Lib ---
 import {
@@ -142,6 +143,7 @@ export function useImageUpload(config?: UseImageUploadConfig) {
   } = config || {}
 
   const { editor } = useTiptapEditor(providedEditor)
+  const isMobile = useIsMobile()
   const [isVisible, setIsVisible] = React.useState<boolean>(true)
   const canInsert = canInsertImage(editor)
   const isActive = isImageActive(editor)
@@ -180,7 +182,7 @@ export function useImageUpload(config?: UseImageUploadConfig) {
     },
     {
       enabled: isVisible && canInsert,
-      enableOnContentEditable: true,
+      enableOnContentEditable: !isMobile,
       enableOnFormTags: true,
     }
   )
@@ -190,7 +192,7 @@ export function useImageUpload(config?: UseImageUploadConfig) {
     isActive,
     handleImage,
     canInsert,
-    label: "",
+    label: "Add image",
     shortcutKeys: IMAGE_UPLOAD_SHORTCUT_KEY,
     Icon: ImagePlusIcon,
   }

@@ -6,6 +6,7 @@ import { type Editor } from "@tiptap/react"
 
 // --- Hooks ---
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 // --- Lib ---
 import { isNodeTypeSelected } from "@/lib/tiptap-utils"
@@ -145,6 +146,7 @@ export function useUndoRedo(config: UseUndoRedoConfig) {
   } = config
 
   const { editor } = useTiptapEditor(providedEditor)
+  const isMobile = useIsMobile()
   const [isVisible, setIsVisible] = React.useState<boolean>(true)
   const canExecute = canExecuteUndoRedoAction(editor, action)
 
@@ -182,7 +184,7 @@ export function useUndoRedo(config: UseUndoRedoConfig) {
     },
     {
       enabled: isVisible && canExecute,
-      enableOnContentEditable: true,
+      enableOnContentEditable: !isMobile,
       enableOnFormTags: true,
     }
   )

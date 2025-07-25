@@ -15,9 +15,15 @@
   align-items: center;
 
   &-group {
-    display: flex;
-    align-items: center;
-    size: 1rem;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box; /* Ensure padding and border are included in width */
+      max-width: 100vw; /* Prevent it from growing beyond viewport width */
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
 
     &:empty {
       display: none;
@@ -32,7 +38,7 @@
   &[data-variant="fixed"] {
     position: sticky;
     top: 0;
-    left: 1rem;
+    left: 0;
     z-index: 10;
     width: 100%;
     min-height: var(--tt-toolbar-height);
@@ -49,7 +55,7 @@
       display: none;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 480px) {
       position: fixed;
       top: auto;
       bottom: 0;
@@ -89,7 +95,7 @@
       background-color: transparent;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 480px) {
       width: 100%;
       border-radius: 0;
       border: none;
