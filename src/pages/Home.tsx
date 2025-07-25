@@ -67,20 +67,20 @@ const Home = () => {
               <h2 className="text-blue-600 font-bold text-lg text-center">anime updatess!!</h2>
               <p>updates of my currently watching anime displayed here</p>
               <div className="flex flex-col mt-3 space-y-5">
-                <a href="https://myanimelist.net/anime/59845/Kaoru_Hana_wa_Rin_to_Saku" target="_blank" rel="noopener noreferrer">
-                  <div className="cursor-pointer hover:animate-zoom-out-once border bg-pink-100 border-blue-300 rounded-lg p-2">
+                <a className="cursor-none" href="https://myanimelist.net/anime/59845/Kaoru_Hana_wa_Rin_to_Saku" target="_blank" rel="noopener noreferrer">
+                  <div className="hover:animate-zoom-out-once border bg-pink-100 border-blue-300 rounded-lg p-2">
                     <h3 className="font-bold text-blue-700">1. The Fragrant Flower Blooms with Dignity</h3>
                     <img className="rounded w-full object-cover" src="https://i.pinimg.com/736x/a2/f6/94/a2f694c10cc0294b62d136e1c54a7731.jpg" />
                   </div>
                 </a>
-                <a href="https://myanimelist.net/anime/60543/Dandadan_2nd_Season" target="_blank" rel="noopener noreferrer">
-                  <div className="cursor-pointer hover:animate-zoom-out-once  bg-green-100 border border-blue-300 rounded-lg p-2">
+                <a className="cursor-none" href="https://myanimelist.net/anime/60543/Dandadan_2nd_Season" target="_blank" rel="noopener noreferrer">
+                  <div className="hover:animate-zoom-out-once  bg-green-100 border border-blue-300 rounded-lg p-2">
                     <h3 className="font-bold text-blue-700">2. Dan Da Dan Season 2</h3>
                     <img className="rounded w-full object-cover" src="https://i.pinimg.com/736x/23/e7/f5/23e7f559ae81d246abb9ba9e456f9075.jpg" />
                   </div>
                 </a>
-                <a href="https://myanimelist.net/anime/21/One_Piece" target="_blank" rel="noopener noreferrer">
-                  <div className="cursor-pointer hover:animate-zoom-out-once  bg-yellow-100 border border-blue-300 rounded-lg p-2">
+                <a className="cursor-none" href="https://myanimelist.net/anime/21/One_Piece" target="_blank" rel="noopener noreferrer">
+                  <div className="hover:animate-zoom-out-once  bg-yellow-100 border border-blue-300 rounded-lg p-2">
                     <h3 className="font-bold text-blue-700">3. One Piece</h3>
                     <img className="rounded w-full object-cover" src="https://i.pinimg.com/736x/eb/ad/26/ebad2683b9ce3d2eb0fdd23f4e3f8eda.jpg" />
                   </div>

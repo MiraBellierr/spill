@@ -85,7 +85,7 @@ const Blog = () => {
                             <input
                                 type="text"
                                 placeholder="Search..."
-                                className="w-full p-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full p-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-none"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -142,11 +142,12 @@ const Blog = () => {
                         <div className="mt-3 mb-auto lg:w-[200px] space-y-4">
                             <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
                                 <div className="space-y-2 text-sm text-center font-bold">
-                                    <h2 className="text-blue-600 font-bold text-lg">Create 📒</h2>
-                                    <div className="border border-blue-300 rounded-2xl bg-blue-200 p-1 hover:bg-blue-300 hover:animate-wiggle">
-                                        <Link to="/blog/edit">Click here</Link>
-                                    </div>
-
+                                    <h2 className="text-blue-600 font-bold text-lg pb-2">Create 📒</h2>
+                                    <Link className='cursor-none' to="/blog/edit">
+                                        <div className="border border-blue-300 rounded-2xl bg-blue-200 p-1 hover:bg-blue-300 hover:animate-wiggle">
+                                            Click here
+                                        </div>
+                                    </Link>
                                 </div>
                             </aside>
                             <div className='flex justify-center'>

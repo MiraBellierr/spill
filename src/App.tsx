@@ -7,6 +7,7 @@ import Art from "./pages/Art";
 import BlogEdit from "./pages/BlogEdit";
 import Cats from "./pages/Cats";
 import CatsEdit from "./pages/CatsEdit";
+import CursorManager from "./parts/CursorManager";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <meta name="twitter:description" content="This site is just my little corner of the web where I share my thoughts, memories, and maybe some projects I’m working on! I might add more pages soon." />
         <meta name="twitter:image" content="https://mirabellier.my.id/background.jpg" />
       </Helmet>
+      <CursorManager />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/spill" element={<Home />} />

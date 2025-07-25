@@ -41,7 +41,7 @@ const About = () => {
             <div className="space-y-2 p-2 border-[10px] [border-image:url('/border.png')_10_fill_round]">
               <h2 className="text-xl font-bold text-blue-700 mb-2">📂 Projects</h2>
               <div className="space-y-2 pt-2">
-                <h3 className="font-bold text-blue-300">1. Jasmine (<a className="cursor-pointer underline hover:animate-wiggle" href="https://github.com/MiraBellierr/jasmine">Github</a>)</h3>
+                <h3 className="font-bold text-blue-300">1. Jasmine (<a className="underline hover:animate-wiggle cursor-none" href="https://github.com/MiraBellierr/jasmine">Github</a>)</h3>
                 <p className="text-sm">A Discord bot I casually developed to keep me learning NodeJS and the fundamentals of REST APIs. The algorithms and the fundamentals of RPG games in turn-based games, the item system, economy system, critical attacks, and luck-based games are strongly used in this project.</p>
               </div>
               <div className="space-y-2 pt-2">
@@ -76,15 +76,15 @@ const About = () => {
             <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4 opacity-90">
               <div className="space-y-2 text-sm text-center font-bold">
                 <h2 className="text-blue-600 font-bold text-lg">Support me!!</h2>
-                  <a href="https://github.com/MiraBellierr" target="_blank" rel="noopener noreferrer" className="flex flex-row space-x-1 justify-center hover:animate-wiggle">
+                  <a href="https://github.com/MiraBellierr" target="_blank" rel="noopener noreferrer" className="flex flex-row space-x-1 justify-center hover:animate-wiggle cursor-none">
                     <img src={github} alt="GitHub" className="h-4 w-4 rounded-full" />
                     <p className="text-blue-500">Github</p>
                   </a>
-                  <a href="https://www.patreon.com/c/jasminebot/" target="_blank" rel="noopener noreferrer" className="flex flex-row space-x-1 justify-center hover:animate-wiggle">
+                  <a href="https://www.patreon.com/c/jasminebot/" target="_blank" rel="noopener noreferrer" className="flex flex-row space-x-1 justify-center hover:animate-wiggle cursor-none">
                     <img src={patreon} alt="GitHub" className="h-4 w-4 rounded-full" />
                     <p className="text-blue-500">Patreon</p>
                   </a>
-                  <a href="https://ko-fi.com/mirabellier" target="_blank" rel="noopener noreferrer" className="flex flex-row space-x-1 justify-center hover:animate-wiggle">
+                  <a href="https://ko-fi.com/mirabellier" target="_blank" rel="noopener noreferrer" className="flex flex-row space-x-1 justify-center hover:animate-wiggle cursor-none">
                     <img src={kofi} alt="GitHub" className="h-4 w-4 rounded-full" />
                     <p className="text-blue-500">Ko-fi</p>
                   </a>
