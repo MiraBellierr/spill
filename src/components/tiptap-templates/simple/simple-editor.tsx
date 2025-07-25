@@ -212,7 +212,11 @@ export function SimpleEditor({
       Image,
       Typography,
       Superscript,
-      Subscript,
+      Subscript.configure({
+        HTMLAttributes: {
+          class: "subscript",
+        },
+      }),
       Selection,
       ImageUploadNode.configure({
         accept: "image/*",
@@ -278,7 +282,7 @@ export function SimpleEditor({
         <EditorContent
           editor={editor}
           role="presentation"
-          className="editor-content p-2 min-h-[300px]"
+          className="editor-content p-2 min-h-[300px] min-w-[calc(100vw-8px)]"
         />
       </EditorContext.Provider>
     </div>
