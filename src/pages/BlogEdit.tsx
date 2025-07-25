@@ -1,9 +1,15 @@
 import Navigation from "../parts/Navigation";
 import Header from "../parts/Header";
 import Footer from "../parts/Footer";
+import MenuBar from "../parts/MenuBar";
 
 import React, { useState } from 'react';
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor'
+import StarterKit from '@tiptap/starter-kit'
+import { useEditor, EditorContent } from "@tiptap/react";
+import { TextStyleKit } from '@tiptap/extension-text-style'
+
+const extensions = [TextStyleKit, StarterKit]
 
 import background from "../assets/background.jpeg";
 
@@ -14,6 +20,13 @@ const BlogEdit = () => {
     const [content, setContent] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, setSubmitSuccess] = useState(false);
+
+    const editor = useEditor({
+        extensions,
+        content: '',
+        autofocus: false,
+        editable: true,
+    })
 
     const handleAuthorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAuthor(e.target.value);
@@ -32,7 +45,7 @@ const BlogEdit = () => {
             const blogData = {
                 author,
                 title,
-                content,
+                content: content || editor.getHTML(),
             };
 
             const response = await fetch(`https://mirabellier.my.id/api/api/posts`, {
@@ -64,8 +77,11 @@ const BlogEdit = () => {
 
             <div className="min-h-screen flex flex-col bg-cover bg-no-repeat bg-scroll" style={{ backgroundImage: `url(${background})` }}>
                 <div className="flex lg:flex-row flex-col flex-grow p-4 max-w-7xl mx-auto w-full">
-                    <div className="flex-grow flex-col">
+                    <div className="flex-grow flex-col space-y-4">
                         <Navigation />
+                        <div className=" mt-3 mb-auto justify-center items-center flex">
+                        <img className="border-border-blue-300 rounded-lg shadow" src="https://media1.tenor.com/m/KHZPhIUhSBsAAAAC/miss-kobayashi.gif" />
+                        </div>
                     </div>
 
                     <main className="w-full lg:w-3/5 space-y-2 p-4">
@@ -101,10 +117,21 @@ const BlogEdit = () => {
                             </div>
 
                             <div className="flex flex-col p-2 space-y-2">
-                                <label className="font-bold text-blue-600" htmlFor="content">Content</label>
-                                <div className="border border-blue-300 bg-white rounded-lg size-max">
-                                    <SimpleEditor onContentChange={setContent} />
-                                </div>                         
+                                <div className="block md:hidden space-y-2">
+                                    <label className="font-bold text-blue-600" htmlFor="content">Content</label>
+                                    {editor && <MenuBar editor={editor} />}
+                                    <EditorContent editor={editor} className="bg-white border rounded-lg border-blue-300 p-2 min-h-[300px]" />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col p-2 space-y-2">
+                                <div className="hidden md:block">
+                                    <label className="font-bold text-blue-600" htmlFor="content">Content</label>
+                                    <div className="border border-blue-300 bg-white rounded-lg size-max">
+                                        <SimpleEditor onContentChange={setContent} />
+                                    </div>   
+                                </div>
+                                                  
                             </div>
                             
                             <div className="flex p-2">
@@ -120,7 +147,7 @@ const BlogEdit = () => {
                     </main>
 
                     <div className="flex-col">
-                        {/* <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4">
+                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4 block sm:hidden">
                             <div className="space-y-2 text-sm font-bold">
                                 <h2 className="text-blue-600 font-bold text-lg">Tips & Tricks</h2>
                                 <p className="text-blue-500">Bold: <span className="border border-blue-500 p-0.5 rounded-sm">Ctrl</span> + <span className="border border-blue-500 p-0.5 rounded-sm">B</span></p>
@@ -129,7 +156,10 @@ const BlogEdit = () => {
                                 <p className="text-blue-500">Code: <span className="border border-blue-500 p-0.5 rounded-sm">Ctrl</span> + <span className="border border-blue-500 p-0.5 rounded-sm">E</span></p>
                                 <p className="text-blue-500 text-sm border-t border-blue-700 p-2 text-center">This only work in content...</p>
                             </div>
-                        </aside>                     */}
+                        </aside>
+                        <div className="flex flex-row justify-center p-4">
+                            <img className="border border-blue-300 rounded-lg" src="https://media1.tenor.com/m/TuaNUyKNcvsAAAAC/kanna-kanna-kamui.gif" />             
+                        </div>
                         <div className="mt-3 mb-auto lg:w-[200px]">
                         </div>
                     </div>
