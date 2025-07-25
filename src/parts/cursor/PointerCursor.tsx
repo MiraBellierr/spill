@@ -1,4 +1,7 @@
-import pointerCursor from '/cursors/Pointer.gif';
+import { useEffect } from 'react';
+import { useCursor } from '../../states/CursorContext';
+
+import pointerCursor from '/cursors/Pointer.gif'; 
 
 type PointerCursorProps = {
   position: { x: number; y: number };
@@ -6,6 +9,28 @@ type PointerCursorProps = {
 };
 
 export default function PointerCursor({ position, isActive }: PointerCursorProps) {
+  const { isCustomCursor } = useCursor();
+  
+  // Hide system pointer cursor when our custom pointer is active
+  useEffect(() => {
+    if (isActive && isCustomCursor) {
+      const elements = document.querySelectorAll(
+        'a, button, [role="button"], [onclick]'
+      );
+      elements.forEach(el => {
+        (el as HTMLElement).style.cursor = 'none';
+      });
+      
+      return () => {
+        elements.forEach(el => {
+          (el as HTMLElement).style.cursor = '';
+        });
+      };
+    }
+  }, [isActive, isCustomCursor]);
+
+  if (!isActive || !isCustomCursor) return null;
+
   const config = {
     width: 32,
     height: 32,
@@ -13,8 +38,6 @@ export default function PointerCursor({ position, isActive }: PointerCursorProps
     offsetY: 0,
     image: pointerCursor
   };
-
-  if (!isActive) return null;
 
   return (
     <div
@@ -27,7 +50,7 @@ export default function PointerCursor({ position, isActive }: PointerCursorProps
         background: `url(${config.image}) no-repeat`,
         backgroundSize: 'contain',
         pointerEvents: 'none',
-        zIndex: 9999, // Higher than normal cursor
+        zIndex: 9999,
       }}
     />
   );

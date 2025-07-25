@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import NormalCursor from './cursor/NormalCursor';
 import PointerCursor from './cursor/PointerCursor';
 import TextCursor from './cursor/TextCursor';
+import { useCursor } from '../states/CursorContext';
 
 export default function CursorManager() {
+  const { isCustomCursor } = useCursor();
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [cursorState, setCursorState] = useState({
@@ -12,6 +14,8 @@ export default function CursorManager() {
   });
 
   useEffect(() => {
+    if (!isCustomCursor) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
       
@@ -21,7 +25,6 @@ export default function CursorManager() {
         'input, textarea'
       );
       
-      // Then check for clickable elements
       const isClickable = !isTextElement && target.closest(
         'a, button, [role="button"], [onclick], [data-clickable]'
       );
@@ -38,17 +41,15 @@ export default function CursorManager() {
     document.addEventListener('mousemove', handleMouseMove);
     document.body.addEventListener('mouseenter', handleMouseEnter);
     document.body.addEventListener('mouseleave', handleMouseLeave);
-    document.body.style.cursor = 'none';
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.body.removeEventListener('mouseenter', handleMouseEnter);
       document.body.removeEventListener('mouseleave', handleMouseLeave);
-      document.body.style.cursor = 'default';
     };
-  }, []);
+  }, [isCustomCursor]);
 
-  if (!isVisible) return null;
+  if (!isCustomCursor || !isVisible) return null;
 
   return (
     <>

@@ -5,6 +5,7 @@ import art from "../assets/img4.png";
 import cats from "../assets/cats.webp";
 
 import { useLocation, Link } from "react-router-dom";
+import ToggleCursor from "./ToggleCursor";
 
 const Navigation = () => {
     const location = useLocation();
@@ -45,6 +46,10 @@ const Navigation = () => {
                   </Link>             
                 </div>
                 <li className="text-sm text-center font-bold text-blue-500">another page (maybe)</li>
+                <div className="flex justify-center space-x-1">
+                    <img className="h-4 w-4" src="/cursors/Normal.gif"/>
+                    <ToggleCursor />  
+                </div>
               </ul>
             </nav>
           </aside>
