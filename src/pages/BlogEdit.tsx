@@ -124,18 +124,9 @@ const BlogEdit = () => {
                     </main>
 
                     <div className="flex-col">
-                        <aside className="w-full lg:w-[200px] mb-auto bg-blue-100 border border-blue-300 rounded-xl shadow-md p-4 block 2xl:hidden">
-                            <div className="space-y-2 text-sm font-bold">
-                                <h2 className="text-blue-600 font-bold text-lg">Tips & Tricks</h2>
-                                <p className="text-blue-500">Bold: <span className="border border-blue-500 p-0.5 rounded-sm">Ctrl</span> + <span className="border border-blue-500 p-0.5 rounded-sm">B</span></p>
-                                <p className="text-blue-500">Italicize: <span className="border border-blue-500 p-0.5 rounded-sm">Ctrl</span> + <span className="border border-blue-500 p-0.5 rounded-sm">I</span></p>
-                                <p className="text-blue-500">Underline: <span className="border border-blue-500 p-0.5 rounded-sm">Ctrl</span> + <span className="border border-blue-500 p-0.5 rounded-sm">U</span></p>
-                                <p className="text-blue-500">Code: <span className="border border-blue-500 p-0.5 rounded-sm">Ctrl</span> + <span className="border border-blue-500 p-0.5 rounded-sm">E</span></p>
-                                <p className="text-blue-500 text-sm border-t border-blue-700 p-2 text-center">This only work in content...</p>
-                            </div>
-                        </aside>
+
                         <div className=" mt-3 mb-auto justify-center items-center flex">
-                            <img className="border-border-blue-300 rounded-lg shadow hidden 2xl:block" src="https://media1.tenor.com/m/TuaNUyKNcvsAAAAC/kanna-kanna-kamui.gif" />
+                            <img className="border-border-blue-300 rounded-lg shadow" src="https://media1.tenor.com/m/TuaNUyKNcvsAAAAC/kanna-kanna-kamui.gif" />
                         </div>
                         <div className="mt-3 mb-auto lg:w-[200px]">
                         </div>
