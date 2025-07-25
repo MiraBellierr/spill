@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { useHotkeys } from "react-hotkeys-hook"
 import type { Editor } from "@tiptap/react"
 
 // --- Hooks ---
@@ -59,16 +58,6 @@ export const markIcons = {
   code: Code2Icon,
   superscript: SuperscriptIcon,
   subscript: SubscriptIcon,
-}
-
-export const MARK_SHORTCUT_KEYS: Record<Mark, string> = {
-  bold: "mod+b",
-  italic: "mod+i",
-  underline: "mod+u",
-  strike: "mod+shift+s",
-  code: "mod+e",
-  superscript: "mod+.",
-  subscript: "mod+,",
 }
 
 /**
@@ -203,26 +192,12 @@ export function useMark(config: UseMarkConfig) {
     return success
   }, [editor, type, onToggled])
 
-  useHotkeys(
-    MARK_SHORTCUT_KEYS[type],
-    (event) => {
-      event.preventDefault()
-      handleMark()
-    },
-    {
-      enabled: isVisible && canToggle,
-      enableOnContentEditable: true,
-      enableOnFormTags: true,
-    }
-  )
-
   return {
     isVisible,
     isActive,
     handleMark,
     canToggle,
     label: getFormattedMarkName(type),
-    shortcutKeys: MARK_SHORTCUT_KEYS[type],
     Icon: markIcons[type],
   }
 }
