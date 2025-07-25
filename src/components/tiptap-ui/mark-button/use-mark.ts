@@ -1,12 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { useHotkeys } from "react-hotkeys-hook"
 import type { Editor } from "@tiptap/react"
 
 // --- Hooks ---
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor"
-import { useIsMobile } from "@/hooks/use-mobile"
 
 // --- Lib ---
 import { isMarkInSchema, isNodeTypeSelected } from "@/lib/tiptap-utils"
@@ -60,16 +58,6 @@ export const markIcons = {
   code: Code2Icon,
   superscript: SuperscriptIcon,
   subscript: SubscriptIcon,
-}
-
-export const MARK_SHORTCUT_KEYS: Record<Mark, string> = {
-  bold: "mod+b",
-  italic: "mod+i",
-  underline: "mod+u",
-  strike: "mod+shift+s",
-  code: "mod+e",
-  superscript: "mod+.",
-  subscript: "mod+,",
 }
 
 /**
@@ -174,7 +162,6 @@ export function useMark(config: UseMarkConfig) {
   } = config
 
   const { editor } = useTiptapEditor(providedEditor)
-  const isMobile = useIsMobile()
   const [isVisible, setIsVisible] = React.useState<boolean>(true)
   const canToggle = canToggleMark(editor, type)
   const isActive = isMarkActive(editor, type)
@@ -205,26 +192,12 @@ export function useMark(config: UseMarkConfig) {
     return success
   }, [editor, type, onToggled])
 
-  useHotkeys(
-    MARK_SHORTCUT_KEYS[type],
-    (event) => {
-      event.preventDefault()
-      handleMark()
-    },
-    {
-      enabled: isVisible && canToggle,
-      enableOnContentEditable: !isMobile,
-      enableOnFormTags: true,
-    }
-  )
-
   return {
     isVisible,
     isActive,
     handleMark,
     canToggle,
     label: getFormattedMarkName(type),
-    shortcutKeys: MARK_SHORTCUT_KEYS[type],
     Icon: markIcons[type],
   }
 }

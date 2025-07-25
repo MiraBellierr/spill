@@ -125,9 +125,6 @@ const BlogEdit = () => {
 
                     <div className="flex-col">
 
-                        <div className=" mt-3 mb-auto justify-center items-center flex">
-                            <img className="border-border-blue-300 rounded-lg shadow" src="https://media1.tenor.com/m/TuaNUyKNcvsAAAAC/kanna-kanna-kamui.gif" />
-                        </div>
                         <div className="mt-3 mb-auto lg:w-[200px]">
                         </div>
                     </div>
