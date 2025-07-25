@@ -4,6 +4,7 @@ import Footer from "../parts/Footer";
 
 import React, { useState } from 'react';
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor'
+import { useNavigate } from 'react-router-dom';
 
 import background from "../assets/background.jpeg";
 
@@ -14,6 +15,8 @@ const BlogEdit = () => {
     const [content, setContent] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, setSubmitSuccess] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleAuthorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAuthor(e.target.value);
@@ -51,6 +54,8 @@ const BlogEdit = () => {
             setAuthor('');
             setTitle('');
             setContent('');
+
+            navigate("/blog");
         } catch (error) {
             console.error('Error saving blog post:', error);
         } finally {

@@ -5,12 +5,15 @@ import Footer from "../parts/Footer";
 import background from "../assets/background.jpeg";
 
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const CatsEdit = () => {
     const [title, setTitle] = useState('');
     const [videoFile, setVideoFile] = useState<File | null>(null);
     const [videoPreview, setVideoPreview] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const navigate = useNavigate();
 
     const apiBaseUrl = "https://mirabellier.my.id/api";
 
@@ -47,6 +50,7 @@ const CatsEdit = () => {
                 setTitle('');
                 setVideoFile(null);
                 setVideoPreview(null);
+                navigate("/cats");
             } else {
                 alert('Upload failed');
             }
