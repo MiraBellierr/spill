@@ -122,7 +122,7 @@ const MainToolbarContent = ({
       <ToolbarSeparator />
 
       <ToolbarGroup>
-        <MarkButton type="superscript" />
+        <MarkButton type="superscript" onTouchStart={(e) => e.preventDefault()}/>
         <MarkButton type="subscript" />
       </ToolbarGroup>
 
