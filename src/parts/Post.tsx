@@ -25,9 +25,6 @@ const Post = ({ html }: { html: string }) => {
     ],
     content: html,
     editable: false,
-    onCreate: ({editor }) => {
-      console.log('Original HTML:\n', editor.getHTML())
-    },  
   })
 
   if (!editor) return null

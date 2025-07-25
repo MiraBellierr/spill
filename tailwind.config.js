@@ -15,10 +15,15 @@ export default {
           '0%': { transform: 'scale(1.2)' },
           '100%': { transform: 'scale(1)' },
         },
+        fadeIn: {
+          '0%': { opacity: 0, transform: 'translateY(-10px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
       },
       animation: {
         wiggle: "wiggle 0.5s ease-in-out infinite",
         'zoom-out-once': 'zoom-out 0.4s ease-out forwards',
+        'fade-in': 'fadeIn 0.3s ease-out',
       },
     },
   },

@@ -1,6 +1,7 @@
 import Navigation from "../parts/Navigation";
 import Header from "../parts/Header";
 import Footer from "../parts/Footer";
+import Toast from "../parts/Toast";
 
 import background from "../assets/background.jpeg";
 
@@ -12,6 +13,8 @@ const CatsEdit = () => {
     const [videoFile, setVideoFile] = useState<File | null>(null);
     const [videoPreview, setVideoPreview] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
     const navigate = useNavigate();
 
@@ -46,17 +49,32 @@ const CatsEdit = () => {
                 body: formData,
             });
             if (res.ok) {
-                alert('Video uploaded!');
                 setTitle('');
                 setVideoFile(null);
                 setVideoPreview(null);
-                navigate("/cats");
+                setToastMessage("🎉 Video uploaded successfully!");
+                setShowToast(true);
+                setTimeout(() => {
+                    setShowToast(false);
+                    setToastMessage("");
+                    navigate("/cats");
+                }, 3000);
             } else {
-                alert('Upload failed');
+                setToastMessage("❌ Video uploaded failed!");
+                setShowToast(true);
+                setTimeout(() => {
+                    setShowToast(false);
+                    setToastMessage("");
+                }, 3000);
             }
         } catch (err) {
             console.error(err);
-            alert('Error uploading video');
+            setToastMessage("❌ Video uploaded failed!");
+            setShowToast(true);
+            setTimeout(() => {
+                setShowToast(false);
+                setToastMessage("");
+            }, 3000);
         } finally {
             setIsSubmitting(false);
         }
@@ -141,6 +159,13 @@ const CatsEdit = () => {
                 </div>
             </div>
 
+            {showToast && (
+            <Toast message={toastMessage} onClose={() => {
+                setShowToast(false);
+                setToastMessage("");
+                navigate("/cats");
+            }} />
+            )}
             <Footer />
         </div>
     )

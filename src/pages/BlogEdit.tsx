@@ -1,6 +1,7 @@
 import Navigation from "../parts/Navigation";
 import Header from "../parts/Header";
 import Footer from "../parts/Footer";
+import Toast from "../parts/Toast";
 
 import React, { useState } from 'react';
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor'
@@ -15,6 +16,8 @@ const BlogEdit = () => {
     const [content, setContent] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, setSubmitSuccess] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
 
     const navigate = useNavigate();
 
@@ -55,8 +58,20 @@ const BlogEdit = () => {
             setTitle('');
             setContent('');
 
-            navigate("/blog");
+            setToastMessage("🎉 Post published successfully!");
+            setShowToast(true);
+            setTimeout(() => {
+                setShowToast(false);
+                setToastMessage("");
+                navigate("/blog");
+            }, 3000);
         } catch (error) {
+            setToastMessage("❌ Failed to publish post");
+            setShowToast(true);
+            setTimeout(() => {
+                setShowToast(false);
+                setToastMessage("");
+            }, 3000);
             console.error('Error saving blog post:', error);
         } finally {
             setIsSubmitting(false);
@@ -136,6 +151,13 @@ const BlogEdit = () => {
                 </div>
             </div>
 
+            {showToast && (
+            <Toast message={toastMessage} onClose={() => {
+                setShowToast(false);
+                setToastMessage("");
+                navigate("/blog");
+            }} />
+            )}
             <Footer />
         </div>
     )
