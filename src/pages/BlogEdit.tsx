@@ -13,7 +13,7 @@ import background from "../assets/background.jpeg";
 const BlogEdit = () => {
     const [author, setAuthor] = useState('');
     const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, setSubmitSuccess] = useState(false);
     const [showToast, setShowToast] = useState(false);
@@ -56,7 +56,7 @@ const BlogEdit = () => {
             
             setAuthor('');
             setTitle('');
-            setContent('');
+            setContent({});
 
             setToastMessage("🎉 Post published successfully!");
             setShowToast(true);

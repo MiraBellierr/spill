@@ -9,11 +9,24 @@ import { Subscript } from "@tiptap/extension-subscript"
 import { Superscript } from "@tiptap/extension-superscript"
 import { Selection } from "@tiptap/extensions"
 
+const CustomImage = Image.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(), // Keep existing attributes (src, alt, title)
+      loading: {
+        default: 'lazy', // Default attribute
+        parseHTML: element => element.getAttribute('loading'),
+        renderHTML: attributes => ({ loading: attributes.loading }),
+      },
+    }
+  },
+})
+
 const Post = ({ html }: { html: string }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Image.configure({ allowBase64: true }),
+      CustomImage.configure({ allowBase64: true }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       TaskList,
       TaskItem.configure({ nested: true }),

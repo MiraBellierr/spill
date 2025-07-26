@@ -178,7 +178,7 @@ const MobileToolbarContent = ({
 export function SimpleEditor({
   onContentChange,
 }: {
-  onContentChange?: (content: string) => void
+  onContentChange?: (content: object) => void
 }) {
   const isMobile = useIsMobile()
   const [mobileView, setMobileView] = React.useState<
@@ -227,8 +227,8 @@ export function SimpleEditor({
     content,
     onUpdate: ({ editor }) => {
       if (onContentChange) {
-        const html = editor.getHTML()
-        onContentChange(html)
+        const json = editor.getJSON()
+        onContentChange(json)
       }
     }
   })
