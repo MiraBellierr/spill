@@ -8,12 +8,102 @@ import Post from '../parts/Post';
 
 import background from '../assets/background.jpeg';
 
+type TextNode = {
+  type: 'text';
+  text: string;
+  marks?: Array<{
+    type: string;
+    attrs?: Record<string, unknown>;
+  }>;
+};
+
+type ListNode = {
+  type: 'listItem';
+  content: ContentNode[];
+};
+
+type ParagraphNode = {
+  type: 'paragraph';
+  attrs?: {
+    textAlign: string | null;
+  };
+  content: ContentNode[];
+};
+
+type HeadingNode = {
+  type: 'heading';
+  attrs?: {
+    textAlign: string | null;
+    level: number;
+  };
+  content: ContentNode[];
+};
+
+type ImageNode = {
+  type: 'image';
+  attrs: {
+    src: string;
+    alt: string;
+    title: string;
+    width: number | null;
+    height: number | null;
+  };
+};
+
+type HardBreakNode = {
+  type: 'hardBreak';
+};
+
+type ContentNode = 
+  | TextNode
+  | ListNode
+  | ParagraphNode
+  | HeadingNode
+  | ImageNode
+  | HardBreakNode;
+
+// Improved function with proper typing
+function extractTextFromContent(content: ContentNode[]): string {
+  let result = '';
+
+  content.forEach((node) => {
+    switch (node.type) {
+      case 'text':
+        result += node.text + ' ';
+        break;
+        
+      case 'listItem':
+        node.content.forEach((item) => {
+          if ('content' in item) {
+            result += extractTextFromContent(item.content);
+          }
+        });
+        break;
+        
+      case 'paragraph':
+      case 'heading':
+        result += extractTextFromContent(node.content);
+        break;
+        
+      // Skip image and hardBreak nodes as they don't contain text
+      case 'image':
+      case 'hardBreak':
+        break;
+        
+      default:
+        // TypeScript will warn if we missed any cases
+        break;
+    }
+  });
+
+  return result;
+}
 type Post = {
     id: string | number;
     title: string;
     author: string;
     createdAt: string;
-    content: string;
+    content: ContentNode[];
 };
 
 const Blog = () => {
@@ -57,7 +147,7 @@ const Blog = () => {
             const term = searchTerm.toLowerCase();
             const filtered = posts.filter(post => 
                 post.title.toLowerCase().includes(term) || 
-                post.content.toLowerCase().includes(term)
+                extractTextFromContent(post.content).toLowerCase().includes(term)
             );
             setFilteredPosts(filtered);
             setCurrentPage(1); // Reset to first page when searching
@@ -124,7 +214,9 @@ const Blog = () => {
                                         <div key={post.id} className="p-2 border-[10px] [border-image:url('/border.png')_10_fill_round]">
                                             <h2 className="text-xl font-bold text-blue-700 mb-2">{post.title}</h2>
                                             <p className="text-sm text-blue-500 mb-2">By {post.author} • {new Date(post.createdAt).toLocaleDateString()}</p>
+                                             <div className="max-h-[500px] overflow-y-auto">
                                                 <Post html={post.content} />
+                                             </div>
                                         </div>
                                         
                                         {index < currentPosts.length - 1 && (

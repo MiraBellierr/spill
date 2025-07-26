@@ -22,7 +22,7 @@ const CustomImage = Image.extend({
   },
 })
 
-const Post = ({ html }: { html: string }) => {
+const Post = ({ html }: { html: object }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
