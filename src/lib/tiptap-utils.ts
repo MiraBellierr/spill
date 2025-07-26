@@ -293,7 +293,7 @@ export const handleImageUpload = async (
     }
   }
 
-  return `https://mirabellier.my.id/${result.path}`; // e.g., "/images/1234-filename.png"
+  return `https://mirabellier.my.id/api/${result.path}`; // e.g., "/images/1234-filename.png"
 };
 /**
  * Converts a File to base64 string
