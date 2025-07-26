@@ -17,25 +17,25 @@ type TextNode = {
   }>;
 };
 
-type ListNode = {
-  type: 'listItem';
-  content: ContentNode[];
-};
-
 type ParagraphNode = {
   type: 'paragraph';
-  attrs?: {
-    textAlign: string | null;
-  };
+  attrs?: { textAlign: string | null };
   content: ContentNode[];
 };
 
 type HeadingNode = {
   type: 'heading';
-  attrs?: {
-    textAlign: string | null;
-    level: number;
-  };
+  attrs?: { textAlign: string | null; level: number };
+  content: ContentNode[];
+};
+
+type ListNode = {
+  type: 'bulletList' | 'orderedList';
+  content: ListItemNode[];
+};
+
+type ListItemNode = {
+  type: 'listItem';
   content: ContentNode[];
 };
 
@@ -54,49 +54,72 @@ type HardBreakNode = {
   type: 'hardBreak';
 };
 
+type DocumentNode = {
+  type: 'doc';
+  content: ContentNode[];
+};
+
 type ContentNode = 
   | TextNode
-  | ListNode
   | ParagraphNode
   | HeadingNode
+  | ListNode
+  | ListItemNode
   | ImageNode
   | HardBreakNode;
 
-// Improved function with proper typing
-function extractTextFromContent(content: ContentNode[]): string {
-  let result = '';
-
-  content.forEach((node) => {
-    switch (node.type) {
-      case 'text':
-        result += node.text + ' ';
-        break;
-        
-      case 'listItem':
-        node.content.forEach((item) => {
-          if ('content' in item) {
-            result += extractTextFromContent(item.content);
+// Text Extraction Function
+function extractTextFromContent(content: DocumentNode | ContentNode[] | undefined): string {
+  if (!content) return '';
+  
+  // Handle document object case
+  if (typeof content === 'object' && 'type' in content && content.type === 'doc') {
+    return extractTextFromContent(content.content);
+  }
+  
+  // Handle array case
+  if (Array.isArray(content)) {
+    let result = '';
+    
+    content.forEach(node => {
+      if (!node) return;
+      
+      switch (node.type) {
+        case 'text':
+          result += node.text + ' ';
+          break;
+          
+        case 'paragraph':
+        case 'heading':
+        case 'listItem':
+          if (node.content) {
+            result += extractTextFromContent(node.content);
           }
-        });
-        break;
-        
-      case 'paragraph':
-      case 'heading':
-        result += extractTextFromContent(node.content);
-        break;
-        
-      // Skip image and hardBreak nodes as they don't contain text
-      case 'image':
-      case 'hardBreak':
-        break;
-        
-      default:
-        // TypeScript will warn if we missed any cases
-        break;
-    }
-  });
-
-  return result;
+          break;
+          
+        case 'bulletList':
+        case 'orderedList':
+          if (node.content) {
+            node.content.forEach(item => {
+              result += extractTextFromContent(item.content);
+            });
+          }
+          break;
+          
+        case 'image':
+        case 'hardBreak':
+          // Skip these nodes
+          break;
+          
+        default:
+          break;
+      }
+    });
+    
+    return result.trim();
+  }
+  
+  return '';
 }
 type Post = {
     id: string | number;
@@ -147,6 +170,7 @@ const Blog = () => {
             const term = searchTerm.toLowerCase();
             const filtered = posts.filter(post => 
                 post.title.toLowerCase().includes(term) || 
+                post.author.toLowerCase().includes(term) ||
                 extractTextFromContent(post.content).toLowerCase().includes(term)
             );
             setFilteredPosts(filtered);
