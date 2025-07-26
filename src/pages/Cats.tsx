@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import Navigation from "../parts/Navigation";
 import Header from "../parts/Header";
 import Footer from "../parts/Footer";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Divider from "../parts/Divider";
 
 import background from "../assets/background.jpeg";
@@ -26,6 +26,25 @@ const Cats = () => {
     const [isIOS, setIsIOS] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const apiBaseUrl = "https://mirabellier.my.id/api";
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const urlSearchQuery = searchParams.get('search') || '';
+        setSearchQuery(urlSearchQuery);
+    }, [location.search]);
+
+    useEffect(() => {
+        const params = new URLSearchParams();
+        if (searchQuery) {
+            params.set('search', searchQuery);
+        } else {
+            params.delete('search');
+        }
+        navigate({ search: params.toString() }, { replace: true });
+    }, [searchQuery, navigate]);
 
     useEffect(() => {
         let isMounted = true;

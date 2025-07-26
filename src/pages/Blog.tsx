@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Navigation from "../parts/Navigation";
 import Header from "../parts/Header";
 import Footer from "../parts/Footer";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Divider from '../parts/Divider';
 import Post from '../parts/Post';
 
@@ -137,6 +137,25 @@ const Blog = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 2;
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const urlSearchTerm = searchParams.get('search') || '';
+        setSearchTerm(urlSearchTerm);
+    }, [location.search]);
+
+    useEffect(() => {
+        const params = new URLSearchParams();
+        if (searchTerm) {
+            params.set('search', searchTerm);
+        } else {
+            params.delete('search');
+        }
+        navigate({ search: params.toString() }, { replace: true });
+    }, [searchTerm, navigate]);
 
     useEffect(() => {
         const fetchPosts = async () => {
