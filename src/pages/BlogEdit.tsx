@@ -41,7 +41,7 @@ const BlogEdit = () => {
                 content: content,
             };
 
-            const response = await fetch(`https://mirabellier.my.id/api/api/posts`, {
+            const response = await fetch(`https://mirabellier.my.id/api/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

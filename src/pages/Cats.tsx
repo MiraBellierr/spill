@@ -32,7 +32,7 @@ const Cats = () => {
         
         async function fetchVideos() {
             try {
-                const res = await fetch(`${apiBaseUrl}/api/cat-videos`);
+                const res = await fetch(`${apiBaseUrl}/cat-videos`);
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 const data = await res.json();
                 if (isMounted) {

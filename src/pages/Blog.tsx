@@ -28,7 +28,7 @@ const Blog = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch(`https://mirabellier.my.id/api/api/posts`);
+                const response = await fetch(`https://mirabellier.my.id/api/posts`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch posts');
                 }

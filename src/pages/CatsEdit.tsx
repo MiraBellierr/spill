@@ -44,7 +44,7 @@ const CatsEdit = () => {
         formData.append('video', videoFile);
 
         try {
-            const res = await fetch(`${apiBaseUrl}/api/upload-cat-video`, {
+            const res = await fetch(`${apiBaseUrl}/upload-cat-video`, {
                 method: 'POST',
                 body: formData,
             });
