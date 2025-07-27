@@ -23,7 +23,7 @@ const Cats = () => {
     const [videoError, setVideoError] = useState<string | null>(null);
     const [videoLoading, setVideoLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
-    const [isIOS, setIsIOS] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const apiBaseUrl = "https://mirabellier.my.id/api";
 
@@ -97,38 +97,40 @@ const Cats = () => {
         } 
     }, [filteredVideos.length, searchQuery, videos]);
 
-    useEffect(() => {
-        if (filteredVideos.length > 0 && !loading) {
-            setVideoLoading(true);
+    // useEffect(() => {
+    //     if (filteredVideos.length > 0 && !loading) {
+    //         setVideoLoading(true);
             
-            const attemptPlay = () => {
-                if (videoRef.current && !isIOS) {
-                    const playPromise = videoRef.current.play();
+    //         const attemptPlay = () => {
+    //             if (videoRef.current && !isIOS) {
+    //                 const playPromise = videoRef.current.play();
                     
-                    if (playPromise !== undefined) {
-                        playPromise
-                            .then(() => {
-                                setVideoLoading(false);
-                                setVideoError(null);
-                            })
-                            .catch(error => {
-                                console.log("Autoplay prevented:", error);
-                                setVideoError("Video loaded but couldn't autoplay.");
-                                setVideoLoading(false);
-                            });
-                    }
-                }
-            };
+    //                 if (playPromise !== undefined) {
+    //                     playPromise
+    //                         .then(() => {
+    //                             setVideoLoading(false);
+    //                             setVideoError(null);
+    //                         })
+    //                         .catch(error => {
+    //                             console.log("Autoplay prevented:", error);
+    //                             setVideoError("Video loaded but couldn't autoplay.");
+    //                             setVideoLoading(false);
+    //                         });
+    //                 }
+    //             }
+    //         };
 
-            const timer = setTimeout(attemptPlay, 100);
-            return () => clearTimeout(timer);
-        }
-    }, [currentVideoIndex, filteredVideos, isIOS, loading]);
+    //         const timer = setTimeout(attemptPlay, 100);
+    //         return () => clearTimeout(timer);
+    //     }
+    // }, [currentVideoIndex, filteredVideos, isIOS, loading]);
 
     useEffect(() => {
-        const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-        setIsIOS(isIOSDevice);
+        const isMobileDevice = () => {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        };
+        setIsMobile(isMobileDevice());
     }, []);
 
     const handleNext = () => {
@@ -237,14 +239,15 @@ const Cats = () => {
                                         </div>
                                     )}
                                     
-                                    <div className={`${videoLoading ? 'hidden' : 'block'}`}>
+                                    <div className={`${videoLoading ? 'hidden' : 'block'} w-full h-auto flex justify-center`}>
                                         <video
                                             ref={videoRef}
                                             key={currentVideo.id}
                                             className="w-[243px] rounded-lg shadow-lg"
                                             controls
-                                            autoPlay={!isIOS}
-                                            muted={isIOS}
+                                            autoPlay
+                                            muted={isMobile}
+                                            playsInline={isMobile}
                                             loop
                                             onError={handleVideoError}
                                             onCanPlay={() => setVideoLoading(false)}
