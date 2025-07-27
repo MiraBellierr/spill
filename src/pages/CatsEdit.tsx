@@ -17,7 +17,7 @@ const CatsEdit = () => {
     const [uploadMethod, setUploadMethod] = useState<'file' | 'youtube'>('file');
 
     const navigate = useNavigate();
-    const apiBaseUrl = "http://localhost:3000";
+    const apiBaseUrl = "https://mirabellier.my.id/api";
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
