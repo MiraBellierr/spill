@@ -10,11 +10,9 @@ const CatsEdit = () => {
     const [title, setTitle] = useState('');
     const [videoFile, setVideoFile] = useState<File | null>(null);
     const [videoPreview, setVideoPreview] = useState<string | null>(null);
-    const [youtubeUrl, setYoutubeUrl] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
-    const [uploadMethod, setUploadMethod] = useState<'file' | 'youtube'>('file');
 
     const navigate = useNavigate();
     const apiBaseUrl = "https://mirabellier.my.id/api";
@@ -33,30 +31,14 @@ const CatsEdit = () => {
         }
     };
 
-    const handleYoutubeUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setYoutubeUrl(e.target.value);
-    };
-
-    const toggleUploadMethod = () => {
-        setUploadMethod(prev => prev === 'file' ? 'youtube' : 'file');
-        setVideoFile(null);
-        setVideoPreview(null);
-        setYoutubeUrl('');
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (uploadMethod === 'file' && !videoFile) return;
-        if (uploadMethod === 'youtube' && !youtubeUrl) return;
+        if (!videoFile) return;
         
         setIsSubmitting(true);
 
         const formData = new FormData();
-        if (uploadMethod === 'file') {
-            formData.append('video', videoFile as Blob);
-        } else {
-            formData.append('youtubeUrl', youtubeUrl);
-        }
+        formData.append('video', videoFile as Blob);
         if (title) {
             formData.append('customTitle', title);
         }
@@ -70,7 +52,6 @@ const CatsEdit = () => {
                 setTitle('');
                 setVideoFile(null);
                 setVideoPreview(null);
-                setYoutubeUrl('');
                 setToastMessage("🎉 Video uploaded successfully!");
                 setShowToast(true);
                 setTimeout(() => {
@@ -111,16 +92,7 @@ const CatsEdit = () => {
                     </div>
 
                     <main className="w-full lg:w-3/5 space-y-2 p-4">
-                        <div className="flex justify-between items-center">
-                            <h2 className="font-bold text-2xl text-blue-600">Upload a cat video</h2>
-                            <button
-                                type="button"
-                                onClick={toggleUploadMethod}
-                                className="bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold py-1 px-3 rounded-lg text-sm"
-                            >
-                                {uploadMethod === 'file' ? 'Use YouTube Shorts' : 'Upload File'}
-                            </button>
-                        </div>
+                        <h2 className="font-bold text-2xl text-blue-600">Upload a cat video</h2>
                         
                         <form onSubmit={handleSubmit}>
                             <div className="flex flex-col p-2 space-y-2">
@@ -138,52 +110,29 @@ const CatsEdit = () => {
                                 />
                             </div>
 
-                            {uploadMethod === 'file' ? (
-                                <>
-                                    <div className="flex flex-col p-2 space-y-2">
-                                        <label className="font-bold text-blue-600" htmlFor="video">
-                                            Upload Video
-                                        </label>
-                                        <input
-                                            type="file"
-                                            id="video"
-                                            name="video"
-                                            accept="video/mp4,video/webm,video/ogg"
-                                            onChange={handleVideoChange}
-                                            className="form-input border rounded-lg border-blue-300 p-2"
-                                            required
-                                        />
-                                    </div>
+                            <div className="flex flex-col p-2 space-y-2">
+                                <label className="font-bold text-blue-600" htmlFor="video">
+                                    Upload Video
+                                </label>
+                                <input
+                                    type="file"
+                                    id="video"
+                                    name="video"
+                                    accept="video/mp4,video/webm,video/ogg"
+                                    onChange={handleVideoChange}
+                                    className="form-input border rounded-lg border-blue-300 p-2"
+                                    required
+                                />
+                            </div>
 
-                                    {videoPreview && (
-                                        <div className="flex flex-col items-center p-2">
-                                            <span className="text-blue-500 mb-2">Preview:</span>
-                                            <video
-                                                src={videoPreview}
-                                                controls
-                                                className="w-64 rounded-lg shadow-lg"
-                                            />
-                                        </div>
-                                    )}
-                                </>
-                            ) : (
-                                <div className="flex flex-col p-2 space-y-2">
-                                    <label className="font-bold text-blue-600" htmlFor="youtubeUrl">
-                                        YouTube Shorts URL
-                                    </label>
-                                    <input
-                                        type="url"
-                                        id="youtubeUrl"
-                                        name="youtubeUrl"
-                                        value={youtubeUrl}
-                                        onChange={handleYoutubeUrlChange}
-                                        className="form-input border rounded-lg border-blue-300 p-2"
-                                        placeholder="https://youtube.com/shorts/..."
-                                        required
+                            {videoPreview && (
+                                <div className="flex flex-col items-center p-2">
+                                    <span className="text-blue-500 mb-2">Preview:</span>
+                                    <video
+                                        src={videoPreview}
+                                        controls
+                                        className="w-64 rounded-lg shadow-lg"
                                     />
-                                    <p className="text-sm text-blue-500">
-                                        Example: https://youtube.com/shorts/abc123 or https://youtu.be/abc123
-                                    </p>
                                 </div>
                             )}
 
@@ -205,9 +154,7 @@ const CatsEdit = () => {
                                 <h2 className="text-blue-600 font-bold text-lg">Tips & Tricks</h2>
                                 <div className="border-t border-blue-300 pt-2">
                                     <p className="text-blue-500">
-                                        {uploadMethod === 'file' 
-                                            ? "1. Bigger size files may take time to upload."
-                                            : "1. Only YouTube Shorts URLs are accepted."}
+                                        1. Bigger size files may take time to upload.
                                     </p>
                                     <p className="text-blue-500">
                                         2. Add a title to make your video more discoverable.
