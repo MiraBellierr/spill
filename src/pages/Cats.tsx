@@ -156,15 +156,33 @@ const Cats = () => {
         setVideoLoading(false);
     };
 
-    const handleTryPlaying = () => {
-        if (videoRef.current) {
+    const handleTryPlaying = async () => {
+        if (!videoRef.current || !currentVideo) return;
+        
+        setVideoLoading(true);
+        setVideoError(null);
+        
+        try {
+            // First try to reload the video source
+            videoRef.current.load();
+            
+            // Wait a moment for the reload to take effect
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Attempt to play with muted audio (required for autoplay on most browsers)
             videoRef.current.muted = true;
-            videoRef.current.play().catch(error => {
-                console.error("Error trying to play video:", error);
-                setVideoError("Error playing video.");
-            });
+            const playPromise = videoRef.current.play();
+            
+            if (playPromise !== undefined) {
+                await playPromise;
+                setVideoLoading(false);
+            }
+        } catch (error) {
+            console.error("Error trying to play video:", error);
+            setVideoError("Still unable to play video. Please try refreshing the page.");
+            setVideoLoading(false);
         }
-    }
+    };
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
